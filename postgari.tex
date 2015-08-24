@@ -9,10 +9,12 @@
 \usepackage{xcolor}
 \usepackage{hyperref}
 \usepackage{amsmath}
-\usepackage[absolute,overlay,showboxes]{textpos}
+\usepackage[absolute,showboxes,overlay]{textpos}
 \usepackage{calc}
 \usepackage[colorgrid,texcoord]{eso-pic}
-% \usepackage[style=authoryear-comp, backref=true]{biblatex}
+\usepackage{biblatex}
+
+\addbibresource{../referomnia/referomnia.bib}
 
 \usepackage{blindtext}
 
@@ -161,24 +163,27 @@
     Tractable inference on Probabilistic Graphical Models (PGMs) is
     at a trade off with model expressiveness.
     \begin{table}[!ht]
-      \setlength{\tabcolsep}{35pt}
+      %\setlength{\tabcolsep}{35pt}
       \centering
-      \begin{tabular}{c c}
+      \begin{tabular}{c c c c}
         
-        \includegraphics[width=0.25\linewidth]{figures/mrf} &
-                                                              \includegraphics[width=0.25\linewidth]{figures/bn}\\
+        \includegraphics[width=0.22\linewidth]{figures/mrf} &
+        \includegraphics[width=0.22\linewidth]{figures/bn} &
+        \includegraphics[width=0.22\linewidth]{figures/clt} &
+        \includegraphics[width=0.22\linewidth]{figures/nf}\\                                                             
         \addlinespace[-0.2cm]
-        \scriptsize  $P(\mathbf{X})=\frac{1}{Z}\prod_{c}\phi_{c}(\mathbf{X}_{c})$
-                                                            & 
-                                                              \scriptsize
-                                                              $P(\mathbf{X})=\prod_{i=1}^nP(X_{i}|\mathbf{Pa}_{i})$\\
-        \addlinespace[0.5cm]
-        \includegraphics[width=0.25\linewidth]{figures/clt} &
-                                                              \includegraphics[width=0.25\linewidth]{figures/nf}\\
-        \addlinespace[-0.2cm]
-        \scriptsize
-        $P(\mathbf{X})=\prod_{i=1}^nP(X_{i}|Pa_{i})$ &
-                                                       \scriptsize $P(\mathbf{X})=\prod_{i=1}^nP(X_{i})$                                                              
+        % \scriptsize  $P(\mathbf{X})=\frac{1}{Z}\prod_{c}\phi_{c}(\mathbf{X}_{c})$ & 
+        % \scriptsize  $P(\mathbf{X})=\prod_{i=1}^nP(X_{i}|\mathbf{Pa}_{i})$&
+        %                                                                  %           \addlinespace[0.5cm]
+                                                                            
+        %                                                                     %\addlinespace[-0.2cm]
+        % \scriptsize $P(\mathbf{X})=\prod_{i=1}^nP(X_{i}|Pa_{i})$ &
+        % \scriptsize $P(\mathbf{X})=\prod_{i=1}^nP(X_{i})$ \\                                                             
+        \scriptsize  $\frac{1}{Z}\prod_{c}\phi_{c}(\mathbf{X}_{c})$ & 
+        \scriptsize  $\prod_{i=1}^nP(X_{i}|\mathbf{Pa}_{i})$&
+        % \addlinespace[0.5cm]
+         \scriptsize $\prod_{i=1}^nP(X_{i}|Pa_{i})$ &
+        \scriptsize $\prod_{i=1}^nP(X_{i})$                                                              
       \end{tabular}
     \end{table}
     
@@ -211,6 +216,11 @@
     
     
   \end{textblock}
+
+  % \begin{textblock}{25.7}(34.1, 15.3)
+  %   \small
+  %     \includegraphics[width=0.7\linewidth]{figures/spn-sum}
+  % \end{textblock}
   
   \begin{textblock}{25.7}(54.2, 12.3)
     \small
@@ -250,17 +260,84 @@ x    \end{minipage}
   
   \begin{textblock}{25.7}(0, 31.)
     \small
-    \blindtext
+    Fixed structures are hard to engineer and train (fully connected
+    layers). Structure learning is more flexible and enables automatic
+    latent features discovery.\par
+    
+    Constraint-based search formulation. Discover hidden variables for sum node mixtures and independences
+    for product node components:
+    \begin{itemize}
+      \itemsep 6pt
+    \item greedy top-down: KMeans on features~\emph{\parencite{Dennis2012}}; alternating clustering on
+      instances and independence tests on features, \textbf{LearnSPN}~\emph{\parencite{Gens2013}}
+      
+    \item greedy bottom up: merging feature regions by a \emph{Bayesian-Dirichlet independence test},  and reducing edges by maximizing MI\emph{~\parencite{Peharz2013}}
+
+    \item \textbf{ID-SPN}: turning LearnSPN in log-likelihood guided expansion of sub-networks
+      approximated by Arithmetic Circuits~\emph{\parencite{Rooshenas2014}}
+      
+    \end{itemize}
   \end{textblock}
   
   \begin{textblock}{25.7}(27.1, 31.)
-    \small
-    \blindtext
+    \footnotesize
+    LearnSPN~\parencite{Gens2013} builds a tree-like SPN by recursively split the data matrix:
+
+    \begin{itemize}
+    \item splitting columns in pairs by a greedy \textbf{\emph{G Test}} based
+      procedure with threshold $\rho$:
+      \[
+      G(X_i, X_j) =  2\sum_{x_i \sim X_i}\sum_{x_j \sim X_j}c(x_i, x_j)\cdot \log\frac{c(x_i, x_j)\cdot |T|}{c(x_i)c(x_j)}
+      \]
+ 
+      \end{itemize}
   \end{textblock}
   
-  \begin{textblock}{25.7}(54.2, 31.)
+  
+  \begin{textblock}{25.7}(33.1, 36.7)
     \small
-    \blindtext
+    \begin{minipage}[t][][t]{6.3cm}
+      \includegraphics[width=\linewidth]{figures/grid-0}
+    \end{minipage}\begin{minipage}[t]{5.54cm}
+      \includegraphics[width=\linewidth]{figures/grid-1}
+    \end{minipage}\raisebox{120pt}{\begin{minipage}[t]{6.3cm}\vspace{-120pt}
+      \includegraphics[width=\linewidth]{figures/learnspn-1}
+    \end{minipage}}\begin{minipage}[t]{5.54cm}
+      \includegraphics[width=\linewidth]{figures/grid-2}
+    \end{minipage}\raisebox{42pt}{\begin{minipage}[t]{7.2cm}
+      \includegraphics[width=\linewidth]{figures/learnspn-2}
+    \end{minipage}}\begin{minipage}[t]{5.724cm}
+    \includegraphics[width=\linewidth]{figures/grid-3}                                                           \end{minipage}\raisebox{42pt}{\begin{minipage}[t]{9cm}
+      \includegraphics[width=\linewidth]{figures/learnspn-3}                                             
+    \end{minipage}}
+    
+    % \begin{table}[ht]
+    %   \centering
+    %   \begin{tabular}{l l l l l l l}
+    %     \includegraphics[width=0.228\linewidth]{figures/grid-0}&
+    %     \includegraphics[width=0.2\linewidth]{figures/grid-1}&
+    %     \includegraphics[width=0.2\linewidth]{figures/learnspn-1}&                                                       \includegraphics[width=0.2\linewidth]{figures/grid-2}&
+    %     \includegraphics[width=0.24\linewidth]{figures/learnspn-2}&
+    %     \includegraphics[width=0.208\linewidth]{figures/grid-3}&                                                          \includegraphics[width=0.30\linewidth]{figures/learnspn-3}\\                                             
+    %   \end{tabular}
+    % \end{table}
+    
+  \end{textblock}
+  
+  
+  \begin{textblock}{25.7}(54.2, 31.)
+    \footnotesize
+    \begin{itemize}
+  \item clustering instances with \textbf{\emph{online Hard-EM}} with cluster penalty
+    $\lambda$:
+    \[\begin{array}{cc}
+        Pr(\mathbf{X})= \sum_{C_i \in \mathbf{C}}\prod_{X_j \in \mathbf{X}}Pr(X_j|C_i)Pr(C_i)\\
+        % & Pr(C_i) \propto e^{-\lambda |\mathbf{C}|\cdot |\mathbf{X}|}\\
+      \end{array}\]
+    \item if there are less than $m$ instances, put a \textbf{\emph{naive
+          factorization}} over leaves
+    \item each univariate distribution get \emph{\textbf{ML estimation}} smoothed by $\alpha$  
+    \end{itemize}
   \end{textblock}
   
   
@@ -269,6 +346,13 @@ x    \end{minipage}
   \begin{textblock}{80}(0, 47.2)
     \usebeamerfont{section name}
     Simplifying by Limiting Node Splits
+  \end{textblock}
+
+  % 
+  % section 3.1
+  \begin{textblock}{20}(54.2, 47.2)
+    \usebeamerfont{section name}
+    Experiments
   \end{textblock}
   
   \begin{textblock}{25.7}(0, 49.7)
@@ -281,10 +365,28 @@ x    \end{minipage}
     \blindtext
   \end{textblock}
   
+  
   \begin{textblock}{25.7}(54.2, 49.7)
-    \small
-    \blindtext
-  \end{textblock}
+    \footnotesize
+    Classical setting for \emph{\textbf{generative}} graphical models
+    structure learning \parencite{Gens2013}:
+    \begin{itemize}
+      \itemsep 7pt
+    \item comparing the \emph{\textbf{average log-likelihood}} on predicting instances from a test set
+    \item 19 binary datasets from classification, recommendation,
+      frequent pattern mining\dots \parencite{Lowd2010} \parencite{Haaren2012}
+    \item Training 75\% Validation 10\% Test 15\%  splits (no cv)
+    \item Model selection via \textit{grid search} in the same parameter space:
+      \begin{itemize}
+        \footnotesize
+      \item $\lambda \in \{0.2, 0.4, 0.6, 0.8\}$,
+      \item $\rho \in \{5, 10, 15, 20\}$, 
+      \item $m \in \{1, 50, 100, 500\}$, 
+      \item $\alpha \in \{ 0.1, 0.2, 0.5, 1.0, 2.0\}$
+      \end{itemize}
+    \item comparing our variants against \textsf{LearnSPN},
+      \textsf{ID-SPN} and \textsf{MT}~\parencite{Meila2000}
+    \end{itemize}  \end{textblock}
   
   
   % 
@@ -342,9 +444,18 @@ x    \end{minipage}
     References
   \end{textblock}
   
-  \begin{textblock}{25.7}(0, 105.8)
+  % \begin{textblock}{25.7}(0, 105.8)
+  %   \small
+  %   % \blindtext
+  %   \setlength\bibitemsep{8pt}
+  %   \printbibliography
+  % \end{textblock}
+
+  \begin{textblock}{52}(0, 105.8)
     \small
     % \blindtext
+    \setlength\bibitemsep{8pt}
+    \printbibliography
   \end{textblock}
   
   \begin{textblock}{25.7}(27.1, 105.8)
