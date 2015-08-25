@@ -13,10 +13,16 @@
 \usepackage{calc}
 \usepackage[colorgrid,texcoord]{eso-pic}
 \usepackage{biblatex}
+% \usepackage{enumitem}
 
 \addbibresource{../referomnia/referomnia.bib}
 
 \usepackage{blindtext}
+
+
+\newcommand*\mccol[2]{\multicolumn{#1}{c}{#2}}
+\newcommand*\tmccol[2]{\mccol{#1}{\tiny\textsf{#2}}}
+\newcommand*\bmccol[2]{\mccol{#1}{\textbf{#2}}}
 
 
 % \usepackage{xparse}
@@ -39,8 +45,8 @@
 \definecolor{header}{RGB}{200, 125, 25}
 \definecolor{footer}{RGB}{0, 153, 51}
 
-\setbeamertemplate{itemize item}{\raisebox{.21ex}{\hbox{\tiny\textcolor{lacamlilac}{$\boldsymbol{\oplus}$}}\hspace{-2pt}}}
-\setbeamertemplate{itemize subitem}{\raise .2ex\hbox{\tiny\textcolor{lacamlilac}{$\boldsymbol{\otimes}$}}\hspace{-3pt}}
+\setbeamertemplate{itemize item}{\raisebox{.21ex}{\hbox{\tiny\textcolor{lacamlilac}{$\boldsymbol{\oplus}$}}\hspace{0pt}}}
+\setbeamertemplate{itemize subitem}{\raise .2ex\hbox{\tiny\textcolor{lacamlilac}{$\boldsymbol{\otimes}$}}\hspace{0pt}}
 \setbeamertemplate{itemize subsubitem}{\textcolor{lacamlilac}{$\oplus$}}
 \setbeamertemplate{bibliography item}{\hspace{10pt}\raise .2ex\hbox{\tiny\textcolor{lacamlilac}{$\boldsymbol{\oplus}$}}}
 
@@ -254,7 +260,7 @@ x    \end{minipage}
   % section 2
   \begin{textblock}{80}(0, 28.5)
     \usebeamerfont{section name}
-    How and Why to perform Structure Learning
+    How and why to perform structure learning
     
   \end{textblock}
   
@@ -345,7 +351,7 @@ x    \end{minipage}
   % section 3
   \begin{textblock}{80}(0, 47.2)
     \usebeamerfont{section name}
-    Simplifying by Limiting Node Splits
+    Simplifying by limiting node splits
   \end{textblock}
 
   % 
@@ -365,30 +371,137 @@ x    \end{minipage}
     \blindtext
   \end{textblock}
   
-  
   \begin{textblock}{25.7}(54.2, 49.7)
     \footnotesize
     Classical setting for \emph{\textbf{generative}} graphical models
     structure learning \parencite{Gens2013}:
+    \setlength{\leftmargini}{30pt}
     \begin{itemize}
       \itemsep 7pt
-    \item comparing the \emph{\textbf{average log-likelihood}} on predicting instances from a test set
     \item 19 binary datasets from classification, recommendation,
       frequent pattern mining\dots \parencite{Lowd2010} \parencite{Haaren2012}
     \item Training 75\% Validation 10\% Test 15\%  splits (no cv)
-    \item Model selection via \textit{grid search} in the same parameter space:
+    \end{itemize}\bigskip
+
+    Comparing both accuracy and structure quality:
+    \begin{itemize}
+    \item \emph{\textbf{average log-likelihood}} on predicting test
+      instances
+    \item networks sizes (\# edges)
+    \item network depth (\# alternated type layers)
+      \item latent interactions captured (\# number of parameters)
+
+    \end{itemize}\bigskip
+    
+    Comparing the state-of-the-art, \textsf{LearnSPN},
+    \textsf{ID-SPN} and \textsf{MT}~\parencite{Meila2000}, against our
+    variations:
+    
+    \begin{itemize}
+    \item \textsf{SPN-B} using only \textsf{B}inary splits
+    \item \textsf{SPN-BT} with \textsf{B}inary splits and \textsf{T}rees as leaves
+    \item \textsf{SPN-BB} combining \textsf{B}inary splits and \textsf{B}agging
+      \item \textsf{SPN-BTB} including all variants
+    \end{itemize}\bigskip
+    
+    Model selection via \textit{grid search} in the same parameter space:
       \begin{itemize}
-        \footnotesize
       \item $\lambda \in \{0.2, 0.4, 0.6, 0.8\}$,
       \item $\rho \in \{5, 10, 15, 20\}$, 
       \item $m \in \{1, 50, 100, 500\}$, 
       \item $\alpha \in \{ 0.1, 0.2, 0.5, 1.0, 2.0\}$
       \end{itemize}
-    \item comparing our variants against \textsf{LearnSPN},
-      \textsf{ID-SPN} and \textsf{MT}~\parencite{Meila2000}
-    \end{itemize}  \end{textblock}
-  
-  
+
+
+      \begin{table}[!htbp]
+        \centering
+        \tiny
+        \setlength{\tabcolsep}{3pt}  
+        \begin{tabular}{r r r r l r r r r r r}
+          \toprule
+          & \bmccol{4}{\# edges}    & \bmccol{3}{\# layers} & \bmccol{3}{\# params}                                                                                                                                                   \\
+          \midrule
+          % & \textsf{LearnSPN}       & \textsf{SPN-B}
+          % & SPN-BT}                 & LearnSPN}             & SPN-B}                & SPN-BT}                 & LearnSPN}            & SPN-B}                & SPN-BT}                                                                \\
+          & \tmccol{1}{LearnSPN}    & \tmccol{1}{SPN-B}     & \tmccol{2}{SPN-BT}    & \tmccol{1}{LearnSPN}    & \tmccol{1}{SPN-B}    & \tmccol{1}{SPN-BT}    & \tmccol{1}{LearnSPN}    & \tmccol{1}{SPN-B}    & \tmccol{1}{SPN-BT}    \\
+          % & \rot{\textsf{LearnSPN}} & \rot{\textsf{SPN-B}}  & \rot{\textsf{SPN-BT}} & \rot{\textsf{LearnSPN}} & \rot{\textsf{SPN-B}} & \rot{\textsf{SPN-BT}} & \rot{\textsf{LearnSPN}} & \rot{\textsf{SPN-B}} & \rot{\textsf{SPN-BT}} \\
+          % & e                       & l                     & p                     & e                       & l                    & p                     & e                       & l                    & p                     \\
+          \midrule       
+          \textbf{NLTCS}      & 7509                    & 1133                  & 1133                  & (1125)                  & 4                    & 15                    & 15                      & 476                  & 275  & 275            \\
+          \textbf{MSNBC}      & 22350                   & 4258                  & 4258                  & (3996)                  & 4                    & 21                    & 21                      & 1680                 & 1071 & 1071           \\
+          \textbf{KDDCup2k}   & 44544                   & 4272                  & 4272                  & (4166)                  & 4                    & 25                    & 25                      & 753                  & 760  & 760            \\
+          \textbf{Plants}     & 55668                   & 13720                 & 5948                  & (1840)                  & 6                    & 23                    & 20                      & 3819                 & 2397 & 490            \\
+          \textbf{Audio}      & 70036                   & 16421                 & 4059                  & (478)                   & 8                    & 23                    & 15                      & 3389                 & 2631 & 105            \\
+          \textbf{Jester}     & 36528                   & 10793                 & 10793                 & (8587)                  & 4                    & 19                    & 19                      & 563                  & 1932 & 1932           \\
+          \textbf{Netflix}    & 17742                   & 25009                 & 4132                  & (203)                   & 4                    & 25                    & 14                      & 1499                 & 4070 & 82             \\
+          \textbf{Accidents}  & 48654                   & 12367                 & 10547                 & (6687)                  & 6                    & 25                    & 26                      & 5390                 & 2708 & 1977           \\
+          \textbf{Retail}     & 7487                    & 1188                  & 1188                  & (1153)                  & 4                    & 23                    & 23                      & 171                  & 224  & 224            \\
+          \textbf{Pumsb-star} & 15247                   & 12800                 & 9984                  & (6175)                  & 8                    & 25                    & 23                      & 1911                 & 2662 & 1680           \\
+          \textbf{DNA}        & 17602                   & 3178                  & 4225                  & (2746)                  & 6                    & 13                    & 12                      & 947                  & 884  & 1113           \\
+          \textbf{Kosarek}    & 7993                    & 8174                  & 2216                  & (1311)                  & 6                    & 27                    & 21                      & 781                  & 1462 & 242            \\
+          \textbf{MSWeb}      & 17339                   & 9116                  & 7568                  & (6797)                  & 6                    & 27                    & 34                      & 620                  & 1672 & 1446           \\
+          \textbf{Book}       & 42491                   & 9917                  & 3503                  & (3485)                  & 4                    & 15                    & 13                      & 1176                 & 1351 & 430            \\
+          \textbf{EachMovie}  & 52693                   & 20756                 & 20756                 & (17861)                 & 8                    & 23                    & 23                      & 1010                 & 2637 & 2637           \\
+          \textbf{WebKB}      & 52498                   & 45620                 & 8796                  & (6874)                  & 8                    & 23                    & 16                      & 1712                 & 6087 & 1128           \\
+          \textbf{Reuters-52} & 307113                  & 77336                 & 77336                 & (59197)                 & 12                   & 31                    & 31                      & 3641                 & 8968 & 8968           \\
+          % \textbf{20 NewsG} & 438100                  & 169326                & (114951)              & 10                      & 31                   & 33                    & 3442                    & 18117                & 18065                 \\
+          \textbf{BBC}        & 318313                  & 63723                 & 63723                 & (41247)                 & 16                   & 27                    & 27                      & 1134                 & 6147 & 6147           \\
+          \textbf{Ad}         & 70056                   & 23606                 & 23606                 & (20079)                 & 16                   & 59                    & 59                      & 1060                 & 1222 & 1222           \\
+          \bottomrule
+        \end{tabular}
+        \caption[Experimentation statistics]{\scriptsize Structural quality results for
+          the best validation models for \textsf{LearnSPN},
+          \textsf{SPN-B} and \textsf{SPN-BT} as the number
+          of edges, layers and parameters. For \textsf{SPN-BT} are reported
+          the number of edges considering those in the Chow-Liu leaves
+          and without considering them (in parenthesis).}
+        \label{tab:expstats}
+      \end{table}
+
+
+
+      \begin{table}[!htbp]
+        \centering
+        \tiny
+        \setlength{\tabcolsep}{3pt}  
+        \begin{tabular}{r r r r r r r r}
+          \toprule
+          & \textsf{LearnSPN} & \textsf{SPN-B} & \textsf{SPN-BT} & \textsf{ID-SPN}  & \textsf{SPN-BB}   & \textsf{SPN-BTB}  & \textsf{MT}      \\
+          \midrule                                                                                     
+          \textbf{NLTCS}      & -6.110            & -6.048         & -6.048          & \textbf{-5.998}  & -6.014            & -6.014            & -6.008           \\
+          \textbf{MSNBC}      & -6.099            & -6.040         & -6.039          & -6.040           & \textbf{-6.032}   & -6.033            & -6.076           \\
+          \textbf{KDDCup2k}   & -2.185            & -2.141         & -2.141          & -2.134           & -2.122            & \textbf{-2.121}   & -2.135           \\
+          \textbf{Plants}     & -12.878           & -12.813        & -12.683         & -12.537          & -12.167           & \textbf{-12.089}  & -12.926          \\
+          \textbf{Audio}      & -40.360           & -40.571        & -40.484         & -39.794          & -39.685           & \textbf{-39.616}  & -40.142          \\
+          \textbf{Jester}     & -53.300           & -53.537        & -53.546         & \textbf{-52.858} & \textbf{-52.873}  & -53.600           & -53.057          \\
+          \textbf{Netflix}    & -57.191           & -57.730        & -57.450         & \textbf{-56.355} & -56.610           & \textbf{-56.371}  & -56.706          \\
+          \textbf{Accidents}  & -30.490           & -29.342        & -29.265         & \textbf{-26.982} & -28.510           & -28.351           & -29.692          \\
+          \textbf{Retail}     & -11.029           & -10.944        & 10.942          & \textbf{-10.846} & -10.858           & -10.858           & \textbf{-10.836} \\
+          \textbf{Pumsb-star} & -24.743           & -23.315        & -23.077         & \textbf{-22.405} & -22.866           & -22.664           & -23.702          \\
+          \textbf{DNA}        & -80.982           & -81.913        & -81.840         & -81.211          & -80.730           & \textbf{-80.068}  & -85.568          \\
+          \textbf{Kosarek}    & -10.894           & -10.719        & -10.685         & -10.599          & -10.690           & \textbf{-10.578}  & -10.615          \\
+          \textbf{MSWeb}      & -10.108           & -9.833         & -9.838          & -9.726           & -9.630            & \textbf{-9.614}   & -9.819           \\
+          \textbf{Book}       & -34.969           & -34.306        & -34.280         & -34.136          & -34.366           & \textbf{-33.818}  & -34.694          \\
+          \textbf{EachMovie}  & -52.615           & -51.368        & -51.388         & -51.512          & \textbf{-50.263}  & \textbf{-50.414}  & -54.513          \\
+          \textbf{WebKB}      & -158.164          & -154.283       & -153.911        & -151.838         & -151.341          & \textbf{-149.851} & -157.001         \\
+          \textbf{Reuters-52} & -85.414           & -83.349        & -83.361         & -83.346          & \textbf{-81.544}  & -81.587           & -86.531          \\
+          % \textbf{20 NewsG}  & -155.218          & -152.846       & -153.072        & -151.467         &                   &                   & -154.367         \\
+          \textbf{BBC}        & -249.466          & -247.301       & -247.254        & -248.929         & \textbf{-226.359} & \textbf{-226.560} & -259.962         \\
+          \textbf{Ad}         & -19.760           & -16.234        & -15.885         & -19.053          & -13.785           & \textbf{-13.595}  & -16.012          \\
+          \bottomrule
+        \end{tabular}
+        \caption[Experimentation results]{\scriptsize Average test
+          log likelihoods for all algorithms.}
+        \label{tab:resexp}
+      \end{table}   
+
+
+
+      
+      \end{textblock}
+
+
+        
   % 
   % section 4
   \begin{textblock}{80}(0, 65.9)
@@ -406,10 +519,10 @@ x    \end{minipage}
     \blindtext
   \end{textblock}
   
-  \begin{textblock}{25.7}(54.2, 68.4)
-    \small
-    \blindtext
-  \end{textblock}
+  % \begin{textblock}{25.7}(54.2, 68.4)
+  %   \small
+  %   \blindtext
+  % \end{textblock}
   
   
   
@@ -417,7 +530,7 @@ x    \end{minipage}
   % section 5
   \begin{textblock}{80}(0, 84.6)
     \usebeamerfont{section name}
-    Strengthening by Model Averaging
+    Strengthening by model averaging
   \end{textblock}
   
   \begin{textblock}{25.7}(0, 87.1)
@@ -430,10 +543,10 @@ x    \end{minipage}
     \blindtext
   \end{textblock}
   
-  \begin{textblock}{25.7}(54.2, 87.1)
-    \small
-    \blindtext
-  \end{textblock}
+  % \begin{textblock}{25.7}(54.2, 87.1)
+  %   \small
+  %   \blindtext
+  % \end{textblock}
   
   
   
@@ -463,10 +576,10 @@ x    \end{minipage}
     % \blindtext
   \end{textblock}
   
-  \begin{textblock}{25.7}(54.2, 105.8)
-    \small
-    % \blindtext
-  \end{textblock}
+  % \begin{textblock}{25.7}(54.2, 105.8)
+  %   \small
+  %   % \blindtext
+  % \end{textblock}
 
   % 
   % footer
