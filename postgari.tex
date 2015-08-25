@@ -40,10 +40,11 @@
 % \ExplSyntaxOff
 
 
-%
-% debugging colors
-\definecolor{header}{RGB}{200, 125, 25}
-\definecolor{footer}{RGB}{0, 153, 51}
+% 
+% custom colors
+\definecolor{untractable_red}{RGB}{209, 25, 25}
+\definecolor{tractable_green}{RGB}{0, 153, 51}
+
 
 \setbeamertemplate{itemize item}{\raisebox{.21ex}{\hbox{\tiny\textcolor{lacamlilac}{$\boldsymbol{\oplus}$}}\hspace{0pt}}}
 \setbeamertemplate{itemize subitem}{\raise .2ex\hbox{\tiny\textcolor{lacamlilac}{$\boldsymbol{\otimes}$}}\hspace{0pt}}
@@ -165,13 +166,17 @@
   
   
   \begin{textblock}{25.7}(0, 12.3)
-    \small
-    Tractable inference on Probabilistic Graphical Models (PGMs) is
-    at a trade off with model expressiveness.
+    \footnotesize
+    Probabilistic Graphical Models (PGMs) provide a tool to compactly
+    represent joint probability distributions $P(\mathbf{X})$.
+
+    However, \emph{\textbf{inference}}, the main task one may want to perform on a PGM, is generally \emph{\textbf{untractable}}.\bigskip  
     \begin{table}[!ht]
-      %\setlength{\tabcolsep}{35pt}
+      \setlength{\tabcolsep}{10pt}
       \centering
       \begin{tabular}{c c c c}
+        \scriptsize\color{untractable_red}  \textbf{\emph{untractable}} & \scriptsize\color{untractable_red} \textbf{\emph{untractable}}& \scriptsize\color{tractable_green} \emph{\textbf{tractable}} & \scriptsize\color{tractable_green} \emph{\textbf{tractable}}\\
+
         
         \includegraphics[width=0.22\linewidth]{figures/mrf} &
         \includegraphics[width=0.22\linewidth]{figures/bn} &
@@ -185,39 +190,43 @@
         %                                                                     %\addlinespace[-0.2cm]
         % \scriptsize $P(\mathbf{X})=\prod_{i=1}^nP(X_{i}|Pa_{i})$ &
         % \scriptsize $P(\mathbf{X})=\prod_{i=1}^nP(X_{i})$ \\                                                             
-        \scriptsize  $\frac{1}{Z}\prod_{c}\phi_{c}(\mathbf{X}_{c})$ & 
-        \scriptsize  $\prod_{i=1}^nP(X_{i}|\mathbf{Pa}_{i})$&
+        \tiny  $P(\mathbf{X})=\frac{1}{Z}\prod\limits_{c}\phi_{c}(\mathbf{X}_{c})$ & 
+        \tiny  $P(\mathbf{X})=\prod\limits_{i=1}^nP(X_{i}|\mathbf{Pa}_{i})$&
         % \addlinespace[0.5cm]
-         \scriptsize $\prod_{i=1}^nP(X_{i}|Pa_{i})$ &
-        \scriptsize $\prod_{i=1}^nP(X_{i})$                                                              
-      \end{tabular}
+        \tiny $P(\mathbf{X})=\prod\limits_{i=1}^nP(X_{i}|Pa_{i})$ &
+        \tiny $P(\mathbf{X})=\prod\limits_{i=1}^nP(X_{i})$                                                              
+      \end{tabular}\bigskip
+      
     \end{table}
-    
+
+    To guarantee polynomial inference, tractable models trade off
+    model expressiveness.
   \end{textblock}
   
   \begin{textblock}{25.7}(27.1, 12.3)
-    \small
-    \emph{Compiling} the partition function of a pdf into a \textbf{\emph{deep}} architecture of \textbf{sum}
-    and \textbf{product} nodes.\\
+    \footnotesize
+    Sum-Product Networks (SPNs) are DAGs
+    \emph{compiling} a pdf $P(\mathbf{X})$ into a \textbf{\emph{deep}} architecture of \textbf{sum}
+    and \textbf{product} nodes over univariate distributions $X_1,\dots,X_n$ as leaves.
+    The parameters of the network are the weights $w_{ij}$ associated to sum
+    nodes children edges.\par\bigskip
     
     Product nodes define factorizations over independent vars, sum
-    nodes mixtures. Leaves are tractable univariate distributions.\\
+    nodes mixtures.\par\bigskip
     
     % Sum node children weights are the parameters of the model.\\
     
     Products over nodes with different scopes (\emph{decomposability}) and
     sums over nodes with same scopes (\emph{completeness}) guarantee modeling
-    a pdf (\emph{validity}).\\
+    a pdf (\emph{validity}).\par\bigskip
     
-    Considering only valid SPNs of \emph{alternated layers of sum and
-      products}.
     
-    \begin{minipage}{0.45\linewidth}
+    \begin{minipage}{0.5\linewidth}
       \centering
-      \includegraphics[width=0.8\linewidth]{figures/spn-prod}
-    \end{minipage}\begin{minipage}{0.45\linewidth}
+      \includegraphics[width=0.65\linewidth]{figures/spn-prod}
+    \end{minipage}\begin{minipage}{0.5\linewidth}
       \centering
-      \includegraphics[width=0.7\linewidth]{figures/spn-sum}
+      \includegraphics[width=0.55\linewidth]{figures/spn-sum}
     \end{minipage}
     
     
@@ -229,30 +238,31 @@
   % \end{textblock}
   
   \begin{textblock}{25.7}(54.2, 12.3)
-    \small
-    \emph{Compiling} the partition function of a pdf into a \textbf{\emph{deep}} architecture of \textbf{sum}
-    and \textbf{product} nodes.\\
+    \footnotesize
+    \begin{minipage}{0.7\linewidth}
     
-    Product nodes define factorizations over independent vars, sum
-    nodes mixtures. Leaves are tractable univariate distributions.\\
-    
-    % Sum node children weights are the parameters of the model.\\
-    
-    Products over nodes with different scopes (\emph{decomposability}) and
-    sums over nodes with same scopes (\emph{completeness}) guarantee modeling
-    a pdf (\emph{validity}).\\
-    
-    Considering only valid SPNs of \emph{alternated layers of sum and
-      products}.
-    
-    \begin{minipage}{0.45\linewidth}
-      \centering
-      \includegraphics[width=0.8\linewidth]{figures/spn-prod}
-    \end{minipage}\begin{minipage}{0.45\linewidth}
-      \centering
-      \includegraphics[width=0.7\linewidth]{figures/spn-sum}
-x    \end{minipage}
+    Bottom-up evaluation of the network:
+    $$S_{X_i}(x_j)=P(X_i=x_j)$$    
+    $$S_{+}(\mathbf{x})=\sum\limits_{i\in
+      ch(+)}w_{i}S_{i}(\mathbf{x})\quad S_{\times}(\mathbf{x})=\prod\limits_{i\in
+      ch(\times)}S_{i}(\mathbf{x})$$\\[10pt]
+    \setlength{\leftmargini}{30pt}
+    Inferences linear in the \emph{\textbf{size of the network}} (\emph{\# edges}):
+    \begin{itemize}
+    \item $Z = S(*)$ (all leaves output 1)
+    \item $P(\mathbf{e}) = S(\mathbf{e})/S(*)$
+    \item $P(\mathbf{q}| \mathbf{e}) = \frac{P(\mathbf{q},
+        \mathbf{e})}{P(\mathbf{e})} = \frac{S(\mathbf{q},
+        \mathbf{e})}{S(\mathbf{e})}$
+    \item $MPE(\mathbf{q},\mathbf{e}) = \max_{\mathbf{q}}P(\mathbf{q},
+      \mathbf{e}) = S^{max}(\mathbf{e})$, turning sum nodes into max nodes
+    \end{itemize}
+  \end{minipage}\begin{minipage}{0.28\linewidth}
+    \includegraphics[width=0.8\linewidth]{figures/spn-long}
+  \end{minipage}\\[20pt]
 
+  The \emph{\textbf{depth of the network}} (\emph{\# layers})
+  determines expressive efficiency~\parencite{Martens2014,Zhao2015}
 
   \end{textblock}
   
