@@ -422,33 +422,51 @@
   
   \begin{textblock}{25.7}(0, 49.7)
     \footnotesize
+    \setlength{\leftmargini}{30pt}
     \textsf{LearSPN} performs two interleaved \textbf{\emph{greedy
         hierarchical}} divisive \textbf{\emph{clustering}}
-    processes (co-clustering). Each process benefits from the other one improvements/highly suffers
-    from other's mistakes.\par\bigskip
+    processes. Each process benefits from the other one improvements
+    and similarly suffers
+    from the other's mistakes.\par\bigskip
 
     Idea: slowing down the processes by limiting the number of
     nodes to split into. \textsf{SPN-B}, variant of \textsf{LearnSPN} that uses EM
-    for mixture modeling with
-    $k=2$ to cluster rows.\par\bigskip
-
-    Pros:
-    \begin{itemize}
-    \item not committing to complex structures too early  
-    \item same expressive power: successive splits\\ allow for more node children
-    \item reducing node out fan increases the depth
-    \item same accuracy, smaller networks
-    \end{itemize}
-  \end{textblock}
+    for mixture modeling but doing only \textsf{B}inary splits for sum nodes children
+    ($k=2$) when clustering rows.\par\bigskip
+    
+    \raisebox{55pt}{\begin{minipage}[t]{0.6\linewidth}
+        \flushleft
+    %  Objectives:
+    %   \begin{itemize}
+    %   \item not committing to complex structures too early  
+    %   \item same expressive power: successive row splits can represent
+    %     sum nodes with more than two children
+    %   \item reducing node out fan increases the network depth 
+    %   %\item same accuracy, smaller networks
+    %   \end{itemize}
+    % \end{minipage}}\hfill\begin{minipage}[c]{0.35\linewidth}
+    %   \begin{center}
+    %     \includegraphics[width=0.85\linewidth]{figures/learnspn-4}
+    %   \end{center}
+    % \end{minipage}
+    Objectives: not committing to complex structures too early while
+    retaining same expressive power, indeed successive row splits can represent
+          sum nodes with more than two children; moreover, reducing
+          the node out fan increases the network depth. Plus, there is no
+          need for $\lambda$ anymore.
+      \end{minipage}}\hspace{40pt}\begin{minipage}[c]{0.3\linewidth}
+      \begin{center}
+        \includegraphics[width=7.5cm]{figures/learnspn-4}
+      \end{center}
+    \end{minipage}
+      \end{textblock}
   
   \begin{textblock}{25.7}(27.1, 49.7)
 
     \footnotesize
     By increasingly limiting the max number of allowed splits the depth of the
-    structures increases. It is also worth noting how the size of the
-    network decreases. 
-    Other
-    
+    structures increases and the network size rate of growth
+    decreases.  
     \begin{table}[ht]
       \setlength{\tabcolsep}{30pt}  
       \centering
@@ -456,6 +474,19 @@
         \includegraphics[width=0.4\linewidth]{figures/nltcs-depth.pdf}&\includegraphics[width=0.4\linewidth]{figures/plants-depth.pdf}
       \end{tabular}
     \end{table}
+    \vspace{-20pt}
+    \begin{center}
+      \begin{minipage}[t]{0.9\linewidth}
+        \tiny\flushleft
+        Figure 2. Comparing network sizes and depths while varying the max
+        number of sum node children splits ($k\in\{10, 4, 2\}$). Each dot is an experiment
+        in the grid search hyperparameter space performed by
+        \textsf{SPN-B} on the datasets NLTCS (left) and
+        Plants (right).
+      \end{minipage}
+    \end{center}
+
+    
   \end{textblock}
   
   \begin{textblock}{25.7}(54.2, 49.7)
@@ -512,7 +543,7 @@
         \includegraphics[width=0.4\linewidth]{figures/edges-comp.pdf}&\includegraphics[width=0.4\linewidth]{figures/levels-comp.pdf}
       \end{tabular}
     \end{table}
-  
+
 
 
       % \begin{table}[!htbp]
@@ -614,16 +645,37 @@
   
   \begin{textblock}{25.7}(0, 68.4)
     \footnotesize
-    \blindtext
+    LearnSPN regularization is is governed by the hyperparameters $\alpha$ and $m$,
+    however using naive factorizations can be ineffective. In order to
+    get accurate networks, the algorithm prefers smaller values for
+    $m$, resulting in more complex networks\par\bigskip
+
+    Idea: substitute naive factorizations with Bayesian trees as
+    \emph{\textbf{multivariate tractable tree
+        distributions}}. \textsf{SPN-BT} learns such \textsf{T}rees
+    with the Chow-Liu algorithm while stopping the search.\par\bigskip
+
+    \raisebox{60pt}{\begin{minipage}[t]{0.6\linewidth}
+        \flushleft
+        Objectives: represent more information allowing for larger
+        values of $m$ to be chosen, while preserving tractability for marginals,
+        conditionals and MPE inference.
+      \end{minipage}}\hspace{40pt}\begin{minipage}[c]{0.3\linewidth}
+      \hspace{-30pt}
+       %\begin{center}
+        \includegraphics[width=8.2cm]{figures/spn-clt}
+      %\end{center}
+    \end{minipage}
     
   \end{textblock}
   
   \begin{textblock}{25.7}(27.1, 68.4)
     \footnotesize
-    By increasingly limiting the max number of allowed splits the depth of the
-    structures increases. It is also worth noting how the size of the
-    network decreases. 
-    Other
+    \textsf{SPN-BT} reduces the
+    size of the networks even more while preserving \textsf{SPN-B}
+    accuracy. At larger values of $m$, when both SPN-B and LearnsSPN
+    accuracies tend to decrease, \textsf{SPN-BT} seems to preserve or
+    improve its likelihood.
     
     \begin{table}[ht]
       \setlength{\tabcolsep}{30pt}  
@@ -632,6 +684,19 @@
         \includegraphics[width=0.4\linewidth]{figures/ll-depth/pumsb-star-ll-depth}&\includegraphics[width=0.4\linewidth]{figures/ll-m/pumsb-star-ll-m}
       \end{tabular}
     \end{table}
+    \vspace{-20pt}
+    \begin{center}
+      \begin{minipage}[t]{0.9\linewidth}
+        \tiny\flushleft
+        Figure 3. Comparing network sizes (left) and values for $m$
+        against the  average test
+        log-likelihood obtained by \textsf{LearnSPN}, \textsf{SPN-B} and
+        \textsf{SPN-BT}
+        number of sum node children splits. Each dot is an experiment
+        in the grid search performed for the dataset Pumsb-star.
+      \end{minipage}
+    \end{center}
+
   \end{textblock}
   
   % \begin{textblock}{25.7}(54.2, 68.4)
