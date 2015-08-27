@@ -10,7 +10,7 @@
 \usepackage{hyperref}
 \usepackage{amsmath}
 \usepackage[absolute, showboxes, overlay]{textpos}
-% \usepackage[absolute, overlay]{textpos}
+%\usepackage[absolute, overlay]{textpos}
 \usepackage{calc}
 \usepackage[colorgrid,texcoord]{eso-pic}
 \usepackage{biblatex}
@@ -278,36 +278,52 @@
   \begin{textblock}{25.7}(0, 31.)
     \footnotesize
      
-    Constraint-based search formulation. Discover hidden variables for sum node mixtures and independences
-    for product node components:
-    \begin{itemize}
-      \itemsep 6pt
-    \item greedy top-down: KMeans on features~\emph{\parencite{Dennis2012}};
-      
-    \item greedy bottom up: merging feature regions by a \emph{Bayesian-Dirichlet independence test},  and reducing edges by maximizing MI\emph{~\parencite{Peharz2013}}
+    SPN structure learning is a constraint-based
+    search. Main ideas: to discover hidden variables for sum nodes and independences
+    for product nodes by applying some form of clustering
+    along matrix axis. Different variations:
+    using K-Means on
+    features~\emph{\parencite{Dennis2012}}; merging features bottom-up
+    with IB heuristics\emph{~\parencite{Peharz2013}};
+    \emph{\textbf{LearnSPN}}~\emph{\parencite{Gens2013}} is the first principled top-down greedy
+    algorithm. 
+    
 
-    \item \textbf{ID-SPN}: turning LearnSPN in log-likelihood guided expansion of sub-networks
-      approximated by Arithmetic Circuits~\emph{\parencite{Rooshenas2014}}
+    % \begin{itemize}
+    %   \itemsep 6pt
+    % \item greedy top-down: KMeans on features~\emph{\parencite{Dennis2012}};
       
-    \end{itemize}
+    % \item greedy bottom up: merging feature regions by a \emph{Bayesian-Dirichlet independence test},  and reducing edges by maximizing MI\emph{~\parencite{Peharz2013}}
+
+    % \item \textbf{ID-SPN}: turning LearnSPN in log-likelihood guided expansion of sub-networks
+    %   approximated by Arithmetic Circuits~\emph{\parencite{Rooshenas2014}}
+      
+    % \end{itemize}
   \end{textblock}
   
   \begin{textblock}{25.7}(27.1, 31.)
     \footnotesize
-    LearnSPN~\parencite{Gens2013} builds a tree-like SPN by recursively split the data matrix:
+    LearnSPN builds a tree-like SPN by recursively split the data
+    matrix.  It splits columns in pairs by a greedy \textbf{\emph{G Test}} based
+    procedure with threshold $\rho$: $G(X_i, X_j) =  2\sum_{x_i \sim
+      X_i}\sum_{x_j \sim X_j}c(x_i, x_j)\cdot \log\frac{c(x_i,
+      x_j)\cdot |T|}{c(x_i)c(x_j)}$ (Figure 1.c); it clusters instances in
+    $|C|$ sets with \textbf{\emph{online Hard-EM}} (Figure 1.b) with cluster number penalty
+    $\lambda$: $Pr(\mathbf{X})= \sum_{C_i \in \mathbf{C}}\prod_{X_j
+      \in \mathbf{X}}Pr(X_j,C_i)$. Weights are the cluster proportions.
 
-    \begin{itemize}
-    \item splitting columns in pairs by a greedy \textbf{\emph{G Test}} based
-      procedure with threshold $\rho$:
-      \[
-      G(X_i, X_j) =  2\sum_{x_i \sim X_i}\sum_{x_j \sim X_j}c(x_i, x_j)\cdot \log\frac{c(x_i, x_j)\cdot |T|}{c(x_i)c(x_j)}
-      \]
+    % \begin{itemize}
+    % \item splitting columns in pairs by a greedy \textbf{\emph{G Test}} based
+    %   procedure with threshold $\rho$:
+    %   \[
+    %   G(X_i, X_j) =  2\sum_{x_i \sim X_i}\sum_{x_j \sim X_j}c(x_i, x_j)\cdot \log\frac{c(x_i, x_j)\cdot |T|}{c(x_i)c(x_j)}
+    %   \]
  
-      \end{itemize}
+    %   \end{itemize}
   \end{textblock}
   
   
-  \begin{textblock}{80}(2, 36.7)
+  \begin{textblock}{60}(0, 36.7)
     \small
     \begin{minipage}[t][][t]{5.67cm}
       \includegraphics[width=\linewidth]{figures/grid-0}
@@ -322,7 +338,22 @@
     \end{minipage}}\hspace{30pt}\begin{minipage}[t]{5.1516cm}
     \includegraphics[width=\linewidth]{figures/grid-3}                                                               \end{minipage}\hspace{30pt}\raisebox{42pt}{\begin{minipage}[t]{8.1cm}
       \includegraphics[width=\linewidth]{figures/learnspn-3}                                             
-    \end{minipage}}
+    \end{minipage}}\hspace{30pt}\raisebox{210pt}{\begin{minipage}[t]{4cm}
+      \tiny\flushleft
+      Figure 1.\\
+      LearnSPN steps depiction starting from a full data matrix \emph{(a)},
+      clustering on rows \emph{(b)}, then on columns \emph{(c)}, and putting a naive
+      factorization on leaves \emph{(d)}
+    \end{minipage}}\\
+  \vspace{-20pt}\hspace{80pt}\begin{minipage}[t]{7cm}
+    \scriptsize\emph{(a)}
+  \end{minipage}\hspace{80pt}\begin{minipage}[t]{7cm}
+    \scriptsize\emph{(b)}
+  \end{minipage}\hspace{175pt}\begin{minipage}[t]{7cm}
+    \scriptsize\emph{(c)}
+  \end{minipage}\hspace{175pt}\begin{minipage}[t]{7cm}
+    \scriptsize\emph{(d)}
+  \end{minipage}
     
     % \begin{table}[ht]
     %   \centering
@@ -339,30 +370,38 @@
   
   
   \begin{textblock}{25.7}(54.2, 31.)
-    \small
-    \begin{itemize}
-  \item clustering instances with \textbf{\emph{online Hard-EM}} with cluster penalty
-    $\lambda$:
-    \[\begin{array}{cc}
-        Pr(\mathbf{X})= \sum_{C_i \in \mathbf{C}}\prod_{X_j \in \mathbf{X}}Pr(X_j|C_i)Pr(C_i)\\
-        % & Pr(C_i) \propto e^{-\lambda |\mathbf{C}|\cdot |\mathbf{X}|}\\
-      \end{array}\]
-      weights are the proportions of instances falling into each cluster
-    \item if there are less than $m$ instances, put a \textbf{\emph{naive
-          factorization}} over leaves
-    \item each univariate distribution get \emph{\textbf{ML
-          estimation}} smoothed by $\alpha$  
-    \end{itemize}
+    \footnotesize
+    If there are less than $m$ instances, it puts a \textbf{\emph{naive
+        factorization}} over leaves (Figure 1.d). For each univariate distribution
+    it gets its \emph{\textbf{ML estimation}} smoothed by $\alpha$. LearnSPN
+    hyperparameter space is thus: $\{\rho, \lambda, m, \alpha\}$.\par\bigskip
 
-    Tractability is guaranteed if the network size is polynomial in \#
-    vars.\par\bigskip
+   %  \small
+  %   \begin{itemize}
+  % \item clustering instances with \textbf{\emph{online Hard-EM}} with cluster penalty
+  %   $\lambda$:
+  %   \[\begin{array}{cc}
+  %       Pr(\mathbf{X})= \sum_{C_i \in \mathbf{C}}\prod_{X_j \in \mathbf{X}}Pr(X_j|C_i)Pr(C_i)\\
+  %       % & Pr(C_i) \propto e^{-\lambda |\mathbf{C}|\cdot |\mathbf{X}|}\\
+  %     \end{array}\]
+  %     weights are the proportions of instances falling into each cluster
+  %   \item if there are less than $m$ instances, put a \textbf{\emph{naive
+  %         factorization}} over leaves
+  %   \item each univariate distribution get \emph{\textbf{ML
+  %         estimation}} smoothed by $\alpha$  
+  %   \end{itemize}
 
-    Comparing network sizes is better than comparing inference times.\par\bigskip
-
-    Overcomplex networks do not generalize well\par\bigskip
+    The state-of-the-art, in terms of test likelihood, is \textbf{ID-SPN}: it turns LearnSPN in log-likelihood guided expansion of sub-networks
+    approximated by Arithmetic
+    Circuits~\emph{\parencite{Rooshenas2014}}. However it is
+    overparametrized, and slower.\par\bigskip
     
-    \emph{Structure quality desiderata}: smaller but accurate, deeper but not
-    wider, SPNs
+    
+    Tractability is guaranteed if the network size is polynomial in \#
+    vars. \emph{\textbf{Structure quality matters}} as much as likelihood. comparing network sizes is more solid than comparing inference times.\par\bigskip
+
+    LearnSPN is too greedy and the resulting SPNs are overcomplex
+    networks that may not generalize well. \textbf{\emph{Structure quality desiderata}}: \emph{smaller} but \emph{accurate}, \emph{deeper} but not wider, SPNs. 
 
   \end{textblock}
   
