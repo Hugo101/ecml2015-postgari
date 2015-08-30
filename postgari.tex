@@ -9,10 +9,10 @@
 \usepackage{xcolor}
 \usepackage{hyperref}
 \usepackage{amsmath}
-%\usepackage[absolute, showboxes, overlay]{textpos}
-\usepackage[absolute, overlay]{textpos}
+\usepackage[absolute, showboxes, overlay]{textpos}
+%\usepackage[absolute, overlay]{textpos}
 \usepackage{calc}
-%\usepackage[colorgrid,texcoord]{eso-pic}
+\usepackage[colorgrid,texcoord]{eso-pic}
 \usepackage{biblatex}
 % \usepackage{enumitem}
 
@@ -160,13 +160,13 @@
   
   %
   % section 1
-  \begin{textblock}{80}(0, 9.8)
+  \begin{textblock}{80}(0, 10.5)
     \usebeamerfont{section name}
     Sum-Product Networks and Tractable Models
   \end{textblock}
   
   
-  \begin{textblock}{25.2}(0, 12.3)
+  \begin{textblock}{25.2}(0, 13)
     \footnotesize
     Probabilistic Graphical Models (PGMs) provide a tool to compactly
     represent joint probability distributions $P(\mathbf{X})$.
@@ -204,7 +204,7 @@
      expressiveness.
   \end{textblock}
   
-  \begin{textblock}{25.2}(27.4, 12.3)
+  \begin{textblock}{25.2}(27.4, 13)
     \footnotesize
     Sum-Product Networks (SPNs) are DAGs
     \emph{compiling} a pdf $P(\mathbf{X})$ into a \textbf{\emph{deep}} architecture of \textbf{sum}
@@ -238,7 +238,7 @@
   %     \includegraphics[width=0.7\linewidth]{figures/spn-sum}
   % \end{textblock}
   
-  \begin{textblock}{25.2}(54.8, 12.3)
+  \begin{textblock}{25.2}(54.8, 13)
     \footnotesize
     \begin{minipage}{0.7\linewidth}
     
@@ -269,13 +269,13 @@
   
   %
   % section 2
-  \begin{textblock}{80}(0, 28.5)
+  \begin{textblock}{80}(0, 29.2)
     \usebeamerfont{section name}
     How and why to perform structure learning
     
   \end{textblock}
   
-  \begin{textblock}{25.2}(0, 31.)
+  \begin{textblock}{25.2}(0, 31.7)
     \footnotesize
      
     SPN structure learning is a constraint-based
@@ -301,14 +301,14 @@
     % \end{itemize}
   \end{textblock}
   
-  \begin{textblock}{25.2}(27.4, 31.)
+  \begin{textblock}{25.2}(27.4, 31.7)
     \footnotesize
-    LearnSPN builds a tree-like SPN by recursively split the data
-    matrix.  It splits columns in pairs by a greedy \textbf{\emph{G Test}} based
+    LearnSPN builds a tree-like SPN by recursively splitting the data
+    matrix: columns in pairs by a greedy \textbf{\emph{G Test}} based
     procedure with threshold $\rho$: $G(X_i, X_j) =  2\sum_{x_i \sim
       X_i}\sum_{x_j \sim X_j}c(x_i, x_j)\cdot \log\frac{c(x_i,
-      x_j)\cdot |T|}{c(x_i)c(x_j)}$ (Figure 1.c); it clusters instances in
-    $|C|$ sets with \textbf{\emph{online Hard-EM}} (Figure 1.b) with cluster number penalty
+      x_j)\cdot |T|}{c(x_i)c(x_j)}$ (Figure 1.c); instances in
+    $|C|$ clusters with \textbf{\emph{online Hard-EM}} (Figure 1.b) with cluster number penalty
     $\lambda$: $Pr(\mathbf{X})= \sum_{C_i \in \mathbf{C}}\prod_{X_j
       \in \mathbf{X}}Pr(X_j,C_i)$. Weights are the cluster proportions.
 
@@ -323,22 +323,22 @@
   \end{textblock}
   
   
-  \begin{textblock}{60}(0, 36.7)
+  \begin{textblock}{60}(0, 37.4)
     \small
-    \begin{minipage}[t][][t]{5.67cm}
+    \begin{minipage}[t][][t]{5.103cm}
       \includegraphics[width=\linewidth]{figures/grid-0}
-    \end{minipage}\hspace{30pt}\begin{minipage}[t]{4.986cm}
+    \end{minipage}\hspace{30pt}\begin{minipage}[t]{4.4874cm}
       \includegraphics[width=\linewidth]{figures/grid-1}
     \end{minipage}\hspace{30pt}\raisebox{82pt}{\begin{minipage}[t]{5.67cm}\vspace{-120pt}
       \includegraphics[width=\linewidth]{figures/learnspn-1}
-    \end{minipage}}\hspace{30pt}\begin{minipage}[t]{4.986cm}
+    \end{minipage}}\hspace{30pt}\begin{minipage}[t]{4.4874cm}
       \includegraphics[width=\linewidth]{figures/grid-2}
     \end{minipage}\hspace{30pt}\raisebox{42pt}{\begin{minipage}[t]{6.48cm}
       \includegraphics[width=\linewidth]{figures/learnspn-2}
-    \end{minipage}}\hspace{30pt}\begin{minipage}[t]{5.1516cm}
+    \end{minipage}}\hspace{30pt}\begin{minipage}[t]{4.6364cm}
     \includegraphics[width=\linewidth]{figures/grid-3}                                                               \end{minipage}\hspace{30pt}\raisebox{42pt}{\begin{minipage}[t]{8.1cm}
       \includegraphics[width=\linewidth]{figures/learnspn-3}                                             
-    \end{minipage}}\hspace{30pt}\raisebox{210pt}{\begin{minipage}[t]{4cm}
+    \end{minipage}}\hspace{50pt}\raisebox{180pt}{\begin{minipage}[t]{4cm}
       \tiny\flushleft
       Figure 1.\\
       LearnSPN steps depiction starting from a full data matrix \emph{(a)},
@@ -369,7 +369,7 @@
   \end{textblock}
   
   
-  \begin{textblock}{25.2}(54.8, 31.)
+  \begin{textblock}{25.2}(54.8, 31.7)
     \footnotesize
     If there are less than $m$ instances, it puts a \textbf{\emph{naive
         factorization}} over leaves (Figure 1.d). For each univariate distribution
@@ -393,7 +393,7 @@
 
     The state-of-the-art, in terms of test likelihood, is \textbf{ID-SPN}: it turns LearnSPN in log-likelihood guided expansion of sub-networks
     approximated by Arithmetic
-    Circuits~\emph{\parencite{Rooshenas2014}}. However it is
+    Circuits~\emph{\parencite{Rooshenas2014-short}}. However it is
     overparametrized, and slower.\par\bigskip
     
     
@@ -408,19 +408,19 @@
   
   %
   % section 3
-  \begin{textblock}{80}(0, 47.2)
+  \begin{textblock}{80}(0, 47.9)
     \usebeamerfont{section name}
     Simplifying by limiting node splits
   \end{textblock}
 
   % 
   % section 3.1
-  \begin{textblock}{20}(54.8, 47.2)
+  \begin{textblock}{20}(54.8, 47.9)
     \usebeamerfont{section name}
     Experiments
   \end{textblock}
   
-  \begin{textblock}{25.2}(0, 49.7)
+  \begin{textblock}{25.2}(0, 50.4)
     \footnotesize
     \setlength{\leftmargini}{30pt}
     \textsf{LearSPN} performs two interleaved \textbf{\emph{greedy
@@ -450,8 +450,8 @@
     %   \end{center}
     % \end{minipage}
     Objectives: not committing to complex structures too early while
-    retaining same expressive power, indeed successive row splits can represent
-          sum nodes with more than two children; moreover, reducing
+    retaining same expressive power (right Figure is equivalent to the
+    SPN in Figure 1.b); moreover, reducing
           the node out fan increases the network depth. Plus, there is no
           need for $\lambda$ anymore.
       \end{minipage}}\hspace{40pt}\begin{minipage}[c]{0.3\linewidth}
@@ -461,7 +461,7 @@
     \end{minipage}
       \end{textblock}
   
-  \begin{textblock}{25.2}(27.4, 49.7)
+  \begin{textblock}{25.2}(27.4, 50.4)
 
     \footnotesize
     By increasingly limiting the max number of allowed splits the depth of the
@@ -489,7 +489,7 @@
     
   \end{textblock}
   
-  \begin{textblock}{25.2}(54.8, 49.7)
+  \begin{textblock}{25.2}(54.8, 50.4)
     \footnotesize
     Classical setting for \emph{\textbf{generative}} graphical models
     structure learning \parencite{Gens2013}:
@@ -638,12 +638,12 @@
         
   % 
   % section 4
-  \begin{textblock}{80}(0, 65.9)
+  \begin{textblock}{80}(0, 66.6)
     \usebeamerfont{section name}
     Regularizing by introducing tree distributions as leaves
   \end{textblock}
   
-  \begin{textblock}{25.2}(0, 68.4)
+  \begin{textblock}{25.2}(0, 69.1)
     \footnotesize
     LearnSPN regularization is is governed by the hyperparameters $\alpha$ and $m$,
     however using naive factorizations can be ineffective. In order to
@@ -655,21 +655,24 @@
         distributions}}. \textsf{SPN-BT} learns such \textsf{T}rees
     with the Chow-Liu algorithm while stopping the search.\par\bigskip
 
-    \raisebox{60pt}{\begin{minipage}[t]{0.6\linewidth}
+    \begin{minipage}[t]{0.6\linewidth}
         \flushleft
         Objectives: represent more information allowing for larger
         values of $m$ to be chosen, while preserving tractability for marginals,
-        conditionals and MPE inference.
-      \end{minipage}}\hspace{40pt}\begin{minipage}[c]{0.3\linewidth}
-      \hspace{-30pt}
-       %\begin{center}
-        \includegraphics[width=8.2cm]{figures/spn-clt}
-      %\end{center}
-    \end{minipage}
-    
+        conditionals and MPE inference\\(still linear in the number of leaves).
+      \end{minipage}% \hspace{40pt}\begin{minipage}[c]{0.3\linewidth}
+    %   \hspace{-30pt}
+    %    %\begin{center}
+    %     \includegraphics[width=8.2cm]{figures/spn-clt}
+    %   %\end{center}
+    % \end{minipage}
   \end{textblock}
+
+  \begin{textblock}{10}(15.8, 76.1)
+    \includegraphics[width=8.2cm]{figures/spn-clt}
+    \end{textblock}
   
-  \begin{textblock}{25.2}(27.4, 68.4)
+  \begin{textblock}{25.2}(27.4, 69.1)
     \footnotesize
     \textsf{SPN-BT} reduces the
     size of the networks even more while preserving \textsf{SPN-B}
@@ -677,13 +680,15 @@
     accuracies tend to decrease, \textsf{SPN-BT} seems to preserve or
     improve its likelihood.
     
-    \begin{table}[ht]
-      \setlength{\tabcolsep}{30pt}  
-      \centering
-      \begin{tabular}{c c}
-        \includegraphics[width=0.4\linewidth]{figures/ll-depth/pumsb-star-ll-depth}&\includegraphics[width=0.4\linewidth]{figures/ll-m/pumsb-star-ll-m}
-      \end{tabular}
-    \end{table}
+    \begin{center}
+      \begin{table}[ht]
+        \setlength{\tabcolsep}{30pt}  
+        \begin{tabular}{c c}
+          \includegraphics[width=0.4\linewidth]{figures/ll-depth/pumsb-star-ll-depth}&\includegraphics[width=0.4\linewidth]{figures/ll-m/pumsb-star-ll-m}
+        \end{tabular}
+      \end{table}
+    \end{center}
+
     \vspace{-20pt}
     \begin{center}
       \begin{minipage}[t]{0.9\linewidth}
@@ -708,12 +713,12 @@
   
   % 
   % section 5
-  \begin{textblock}{80}(0, 84.6)
+  \begin{textblock}{80}(0, 85.3)
     \usebeamerfont{section name}
     Strengthening by model averaging
   \end{textblock}
   
-  \begin{textblock}{25.2}(0, 87.1)
+  \begin{textblock}{25.2}(0, 87.8)
     \footnotesize
     The structure building process can still be too greedy and the
     resulting networks not so accurate.\par\bigskip
@@ -739,7 +744,7 @@
 
   \end{textblock}
   
-  \begin{textblock}{25.2}(27.4, 87.1)
+  \begin{textblock}{25.2}(27.4, 87.8)
     \footnotesize
     Both \textsf{SPN-BB} and \textsf{SPN-BTB} improve their respective
     variants accuracies a lot and beat \textsf{ID-SPN} on 14 datasets
@@ -773,7 +778,7 @@
   
   % 
   % section 5
-  \begin{textblock}{80}(0, 103.3)
+  \begin{textblock}{80}(0, 104.)
     \usebeamerfont{section name}
     References
   \end{textblock}
@@ -785,14 +790,14 @@
   %   \printbibliography
   % \end{textblock}
 
-  \begin{textblock}{52}(0, 105.8)
+  \begin{textblock}{52}(0, 106.5)
     \small
     % \blindtext
     \setlength\bibitemsep{8pt}
     \printbibliography
   \end{textblock}
   
-  \begin{textblock}{25.2}(27.4, 105.8)
+  \begin{textblock}{25.2}(27.4, 106.5)
     \small
     % \blindtext
   \end{textblock}
