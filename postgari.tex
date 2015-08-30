@@ -9,10 +9,10 @@
 \usepackage{xcolor}
 \usepackage{hyperref}
 \usepackage{amsmath}
-\usepackage[absolute, showboxes, overlay]{textpos}
-%\usepackage[absolute, overlay]{textpos}
+%\usepackage[absolute, showboxes, overlay]{textpos}
+\usepackage[absolute, overlay]{textpos}
 \usepackage{calc}
-\usepackage[colorgrid,texcoord]{eso-pic}
+%\usepackage[colorgrid,texcoord]{eso-pic}
 \usepackage{biblatex}
 % \usepackage{enumitem}
 
@@ -166,7 +166,7 @@
   \end{textblock}
   
   
-  \begin{textblock}{25.7}(0, 12.3)
+  \begin{textblock}{25.2}(0, 12.3)
     \footnotesize
     Probabilistic Graphical Models (PGMs) provide a tool to compactly
     represent joint probability distributions $P(\mathbf{X})$.
@@ -200,20 +200,20 @@
       
     \end{table}
 
-    To guarantee polynomial inference, tractable models trade off
-    model expressiveness.
+    To ensure polynomial inference, tractable models trade off
+     expressiveness.
   \end{textblock}
   
-  \begin{textblock}{25.7}(27.1, 12.3)
+  \begin{textblock}{25.2}(27.4, 12.3)
     \footnotesize
     Sum-Product Networks (SPNs) are DAGs
     \emph{compiling} a pdf $P(\mathbf{X})$ into a \textbf{\emph{deep}} architecture of \textbf{sum}
     and \textbf{product} nodes over univariate distributions $X_1,\dots,X_n$ as leaves.
     The parameters of the network are the weights $w_{ij}$ associated to sum
-    nodes children edges.\par\bigskip
+    nodes children edges.\par
     
     Product nodes define factorizations over independent vars, sum
-    nodes mixtures.\par\bigskip
+    nodes mixtures.\par
     
     % Sum node children weights are the parameters of the model.\\
     
@@ -233,12 +233,12 @@
     
   \end{textblock}
 
-  % \begin{textblock}{25.7}(34.1, 15.3)
+  % \begin{textblock}{25}(34.1, 15.3)
   %   \small
   %     \includegraphics[width=0.7\linewidth]{figures/spn-sum}
   % \end{textblock}
   
-  \begin{textblock}{25.7}(54.2, 12.3)
+  \begin{textblock}{25.2}(54.8, 12.3)
     \footnotesize
     \begin{minipage}{0.7\linewidth}
     
@@ -263,7 +263,7 @@
   \end{minipage}\\[20pt]
 
   The \emph{\textbf{depth of the network}} (\emph{\# layers})
-  determines expressive efficiency~\parencite{Martens2014,Zhao2015}
+  determines expressive efficiency~\parencite{Martens2014,Zhao2015}.
 
   \end{textblock}
   
@@ -275,7 +275,7 @@
     
   \end{textblock}
   
-  \begin{textblock}{25.7}(0, 31.)
+  \begin{textblock}{25.2}(0, 31.)
     \footnotesize
      
     SPN structure learning is a constraint-based
@@ -301,7 +301,7 @@
     % \end{itemize}
   \end{textblock}
   
-  \begin{textblock}{25.7}(27.1, 31.)
+  \begin{textblock}{25.2}(27.4, 31.)
     \footnotesize
     LearnSPN builds a tree-like SPN by recursively split the data
     matrix.  It splits columns in pairs by a greedy \textbf{\emph{G Test}} based
@@ -369,7 +369,7 @@
   \end{textblock}
   
   
-  \begin{textblock}{25.7}(54.2, 31.)
+  \begin{textblock}{25.2}(54.8, 31.)
     \footnotesize
     If there are less than $m$ instances, it puts a \textbf{\emph{naive
         factorization}} over leaves (Figure 1.d). For each univariate distribution
@@ -415,12 +415,12 @@
 
   % 
   % section 3.1
-  \begin{textblock}{20}(54.2, 47.2)
+  \begin{textblock}{20}(54.8, 47.2)
     \usebeamerfont{section name}
     Experiments
   \end{textblock}
   
-  \begin{textblock}{25.7}(0, 49.7)
+  \begin{textblock}{25.2}(0, 49.7)
     \footnotesize
     \setlength{\leftmargini}{30pt}
     \textsf{LearSPN} performs two interleaved \textbf{\emph{greedy
@@ -461,7 +461,7 @@
     \end{minipage}
       \end{textblock}
   
-  \begin{textblock}{25.7}(27.1, 49.7)
+  \begin{textblock}{25.2}(27.4, 49.7)
 
     \footnotesize
     By increasingly limiting the max number of allowed splits the depth of the
@@ -489,7 +489,7 @@
     
   \end{textblock}
   
-  \begin{textblock}{25.7}(54.2, 49.7)
+  \begin{textblock}{25.2}(54.8, 49.7)
     \footnotesize
     Classical setting for \emph{\textbf{generative}} graphical models
     structure learning \parencite{Gens2013}:
@@ -497,7 +497,7 @@
     \begin{itemize}
       \itemsep 7pt
     \item 19 binary datasets from classification, recommendation,
-      frequent pattern mining\dots \parencite{Lowd2010} \parencite{Haaren2012}
+      frequent pattern mining\dots \parencite{Haaren2012}
     \item Training 75\% Validation 10\% Test 15\%  splits (no cv)
     \end{itemize}\bigskip
 
@@ -643,7 +643,7 @@
     Regularizing by introducing tree distributions as leaves
   \end{textblock}
   
-  \begin{textblock}{25.7}(0, 68.4)
+  \begin{textblock}{25.2}(0, 68.4)
     \footnotesize
     LearnSPN regularization is is governed by the hyperparameters $\alpha$ and $m$,
     however using naive factorizations can be ineffective. In order to
@@ -669,7 +669,7 @@
     
   \end{textblock}
   
-  \begin{textblock}{25.7}(27.1, 68.4)
+  \begin{textblock}{25.2}(27.4, 68.4)
     \footnotesize
     \textsf{SPN-BT} reduces the
     size of the networks even more while preserving \textsf{SPN-B}
@@ -699,7 +699,7 @@
 
   \end{textblock}
   
-  % \begin{textblock}{25.7}(54.2, 68.4)
+  % \begin{textblock}{25.2}(54.2, 68.4)
   %   \small
   %   \blindtext
   % \end{textblock}
@@ -713,17 +713,58 @@
     Strengthening by model averaging
   \end{textblock}
   
-  \begin{textblock}{25.7}(0, 87.1)
-    \small
-    \blindtext
+  \begin{textblock}{25.2}(0, 87.1)
+    \footnotesize
+    The structure building process can still be too greedy and the
+    resulting networks not so accurate.\par\bigskip
+    
+    Idea: interpreting sum nodes as \emph{general additive estimators}
+    by leveraging
+    classic statistical tools to learn them:
+    \textbf{\emph{bagging}}.\par\bigskip
+
+    We draw $k$ bootstrapped samples from the data, then grow an SPN $S_{B_i}$ on
+    each of them. Join them into a single SPN $\hat{S}$ with a sum node:
+    $\hat{S}=\sum_{i=1}^{k}\frac{1}{k}S_{B_{i}}$.\par\bigskip
+    
+    Two new variants, \textsf{SPN-BB} and
+    \textsf{SPN-BTB}, apply \textsf{B}agging to \textsf{SPN-B} and \textsf{SPN-BT}.\par\bigskip
+
+    Objectives: more robustness and less variance in the model.
+    However, the number of nodes can grow exponential if we bootstrap
+    $c$ times for each sum node, thus we
+    apply it once, at the root level only.
+
+    
+
   \end{textblock}
   
-  \begin{textblock}{25.7}(27.1, 87.1)
-    \small
-    \blindtext
+  \begin{textblock}{25.2}(27.4, 87.1)
+    \footnotesize
+    Both \textsf{SPN-BB} and \textsf{SPN-BTB} improve their respective
+    variants accuracies a lot and beat \textsf{ID-SPN} on 14 datasets
+    (see Table 1). Monitoring the test log-likelihood gain can help
+    decide the proper number of components.
+    \begin{table}[ht]
+      \setlength{\tabcolsep}{30pt}  
+      \centering
+      \begin{tabular}{c c}
+        \includegraphics[width=0.4\linewidth]{figures/curves/pumsb-star.pdf}&\includegraphics[width=0.4\linewidth]{figures/curves/dna.pdf}
+      \end{tabular}
+    \end{table}
+    \vspace{-20pt}
+    \begin{center}
+      \begin{minipage}[t]{0.9\linewidth}
+        \tiny\flushleft
+        Figure 3. Comparing test log-likelihoods for \textsf{SPN-BB} and
+        \textsf{SPN-BTB} while increasing the number of components against \textsf{LearnSPN}, \textsf{MT} and
+        \textsf{ID-SPN} best models accuracies for DNA (left) and
+        Pumsb\_star (right).
+      \end{minipage}
+    \end{center}
   \end{textblock}
   
-  % \begin{textblock}{25.7}(54.2, 87.1)
+  % \begin{textblock}{25.2}(54.2, 87.1)
   %   \small
   %   \blindtext
   % \end{textblock}
@@ -737,7 +778,7 @@
     References
   \end{textblock}
   
-  % \begin{textblock}{25.7}(0, 105.8)
+  % \begin{textblock}{25.2}(0, 105.8)
   %   \small
   %   % \blindtext
   %   \setlength\bibitemsep{8pt}
@@ -751,12 +792,12 @@
     \printbibliography
   \end{textblock}
   
-  \begin{textblock}{25.7}(27.1, 105.8)
+  \begin{textblock}{25.2}(27.4, 105.8)
     \small
     % \blindtext
   \end{textblock}
   
-  % \begin{textblock}{25.7}(54.2, 105.8)
+  % \begin{textblock}{25.2}(54.2, 105.8)
   %   \small
   %   % \blindtext
   % \end{textblock}
@@ -765,6 +806,7 @@
   % footer
   \begin{textblock}{80}(0, 114.3)
     \usebeamerfont{subtitle}
+    \footnotesize
     \textbf{ECML-PKDD 2015} - 8th September 2015, Porto, Portugal\hfill
     {\url{http://www.di.uniba.it/~vergari/code/spyn.html}}
   \end{textblock}
