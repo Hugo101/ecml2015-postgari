@@ -543,6 +543,16 @@
         \includegraphics[width=0.4\linewidth]{figures/edges-comp.pdf}&\includegraphics[width=0.4\linewidth]{figures/levels-comp.pdf}
       \end{tabular}
     \end{table}
+    \vspace{-20pt}
+    \begin{center}
+      \begin{minipage}[t]{0.9\linewidth}
+        \tiny\flushleft
+        Figure 4. Comparing network sizes (left) and depths (right)
+        for the networks scoring the best log-likelihoods in the grid
+        search as obtained by \textsf{LearnSPN}, \textsf{SPN-B} and
+        \textsf{SPN-BT} for each dataset.
+      \end{minipage}
+    \end{center}
 
 
 
@@ -623,11 +633,22 @@
           \textbf{Ad}         & -19.760           & -16.234        & -15.885         & -19.053          & -13.785           & \textbf{-13.595}  & -16.012          \\
           \bottomrule
         \end{tabular}
-        \caption[Experimentation results]{\scriptsize Average test
-          log likelihoods for all algorithms. In bold the best values
-          after a Wilcoxon signed rank test with $p$-value of 0.05.}
-        \label{tab:resexp}
-      \end{table}   
+        % \caption[Experimentation results]{\scriptsize Average test
+        %   log likelihoods for all algorithms. In bold the best values
+        %   after a Wilcoxon signed rank test with $p$-value of 0.05.}
+        % \label{tab:resexp}
+      \end{table}
+      % \vspace{-20pt}
+      \begin{center}
+        \begin{minipage}[t]{0.9\linewidth}
+          \tiny\flushleft
+          Table 1. Average test
+          log likelihoods for the best networks learned by all
+          algorithms on all datasets after the grid search. In bold
+          the values that are statistically better than all the others
+          according to a Wilcoxon signed rank test with $p$-value of 0.05.
+        \end{minipage}
+      \end{center}
 
 
 
@@ -684,7 +705,7 @@
       \begin{table}[ht]
         \setlength{\tabcolsep}{30pt}  
         \begin{tabular}{c c}
-          \includegraphics[width=0.4\linewidth]{figures/ll-depth/pumsb-star-ll-depth}&\includegraphics[width=0.4\linewidth]{figures/ll-m/pumsb-star-ll-m}
+          \includegraphics[width=0.4\linewidth]{figures/ll-depth/10-8/pumsb-star-ll-depth}&\includegraphics[width=0.4\linewidth]{figures/ll-m/10-8/pumsb-star-ll-m}
         \end{tabular}
       \end{table}
     \end{center}
@@ -708,7 +729,6 @@
   %   \small
   %   \blindtext
   % \end{textblock}
-  
   
   
   % 
@@ -754,7 +774,7 @@
       \setlength{\tabcolsep}{30pt}  
       \centering
       \begin{tabular}{c c}
-        \includegraphics[width=0.4\linewidth]{figures/curves/pumsb-star.pdf}&\includegraphics[width=0.4\linewidth]{figures/curves/dna.pdf}
+        \includegraphics[width=0.4\linewidth]{figures/curves/pumsb-star-png.pdf}&\includegraphics[width=0.4\linewidth]{figures/curves/dna-png.pdf}
       \end{tabular}
     \end{table}
     \vspace{-20pt}
@@ -763,8 +783,9 @@
         \tiny\flushleft
         Figure 3. Comparing test log-likelihoods for \textsf{SPN-BB} and
         \textsf{SPN-BTB} while increasing the number of components against \textsf{LearnSPN}, \textsf{MT} and
-        \textsf{ID-SPN} best models accuracies for DNA (left) and
-        Pumsb\_star (right).
+        \textsf{ID-SPN} best models accuracies for Pumsb\_star (left)
+        and DNA (right).
+        .
       \end{minipage}
     \end{center}
   \end{textblock}
