@@ -9,12 +9,13 @@
 \usepackage{xcolor}
 \usepackage{hyperref}
 \usepackage{amsmath}
-\usepackage[absolute, showboxes, overlay]{textpos}
-%\usepackage[absolute, overlay]{textpos}
+%\usepackage[absolute, showboxes, overlay]{textpos}
+\usepackage[absolute, overlay]{textpos}
 \usepackage{calc}
-\usepackage[colorgrid,texcoord]{eso-pic}
+%\usepackage[colorgrid,texcoord]{eso-pic}
 \usepackage{biblatex}
 % \usepackage{enumitem}
+\defaultfontfeatures{Mapping=tex-text}
 
 \addbibresource{../referomnia/referomnia.bib}
 
@@ -491,17 +492,13 @@
   
   \begin{textblock}{25.2}(54.8, 50.4)
     \footnotesize
-    Classical setting for \emph{\textbf{generative}} graphical models
-    structure learning \parencite{Gens2013}:
     \setlength{\leftmargini}{30pt}
-    \begin{itemize}
-      \itemsep 7pt
-    \item 19 binary datasets from classification, recommendation,
-      frequent pattern mining\dots \parencite{Haaren2012}
-    \item Training 75\% Validation 10\% Test 15\%  splits (no cv)
-    \end{itemize}\bigskip
-
-    Comparing both accuracy and structure quality:
+    We devised our experiments in a classical setting for \emph{\textbf{generative}} graphical models
+    structure learning \parencite{Gens2013}: we used 19 binary datasets from classification, recommendation,
+      frequent pattern mining\dots \parencite{Haaren2012} (NLT) which
+      are split into a training ($\sim$75\%), a  validation
+      ($\sim$10\%) and a test ($\sim$15\%) part to compare both the
+      networks accuracies and their structure quality. We measured:
     \begin{itemize}
     \item \emph{\textbf{average log-likelihood}} on predicting test
       instances
@@ -511,31 +508,32 @@
 
     \end{itemize}\bigskip
     
-    Comparing the state-of-the-art, \textsf{LearnSPN},
-    \textsf{ID-SPN} and \textsf{MT}~\parencite{Meila2000}, against our
-    variations:
+    We first compare \textsf{LearnSPN} against our variations,
+    \textsf{SPN-B} using only \textsf{B}inary splits and  \textsf{SPN-BT} with \textsf{B}inary splits and \textsf{T}rees as leaves, to
+    measure the structure quality improvements and then we add
+    \textsf{SPN-BB} combining \textsf{B}inary splits and
+    \textsf{B}agging and \textsf{SPN-BTB} including all variants in a comparison
+    against the state-of-the-art in terms of loglikelihood: 
+    \textsf{ID-SPN}~\parencite{Rooshenas2014-short} and \textsf{MT}~\parencite{Meila2000}.
     
-    \begin{itemize}
-    \item \textsf{SPN-B} using only \textsf{B}inary splits
-    \item \textsf{SPN-BT} with \textsf{B}inary splits and \textsf{T}rees as leaves
-    \item \textsf{SPN-BB} combining \textsf{B}inary splits and \textsf{B}agging
-      \item \textsf{SPN-BTB} including all variants
-    \end{itemize}\bigskip
-    
-    Model selection via \textit{grid search} in the same parameter
-    space:
+   
+    We perform a model selection via a \textit{grid search} in the same parameter
+    space for \textsf{LearnSPN}, \textsf{SPN-B}, \textsf{SPN-BT}:\\[-10pt]
     \begin{minipage}[t]{0.35\linewidth}
       \begin{itemize}
-      \item $\lambda \in \{0.2, 0.4, 0.6, 0.8\}$,
-      \item $\rho \in \{5, 10, 15, 20\}$, 
+      \item \scriptsize$\lambda \in \{0.2, 0.4, 0.6, 0.8\}$,
+      \item \scriptsize$\rho \in \{5, 10, 15, 20\}$, 
       \end{itemize}
     \end{minipage}\begin{minipage}[t]{0.5\linewidth}
       \begin{itemize}
-      \item $m \in \{1, 50, 100, 500\}$, 
-      \item $\alpha \in \{ 0.1, 0.2, 0.5, 1.0, 2.0\}$.
+      \item \scriptsize$m \in \{1, 50, 100, 500\}$, 
+      \item \scriptsize$\alpha \in \{ 0.1, 0.2, 0.5, 1.0, 2.0\}$.
       \end{itemize}
-    \end{minipage}
-
+    \end{minipage}\\[17pt]
+    
+    The gain in network sizes is up to one order of magnitute with
+    \textsf{SPN-BT} while very considerable depths are preserved.
+    
     \begin{table}[ht]
       \setlength{\tabcolsep}{30pt}  
       \centering
@@ -552,54 +550,21 @@
         search as obtained by \textsf{LearnSPN}, \textsf{SPN-B} and
         \textsf{SPN-BT} for each dataset.
       \end{minipage}
-    \end{center}
+    \end{center}\par\bigskip
 
+    \vspace{15pt}
+    For \textsf{SPN-BB} and \textsf{SPN-BTB} we simply use the best
+    parameters found for \textsf{SPN-B} and \textsf{SPN-BT} using up
+    to 50 bootstrapped components; while for
+    \textsf{ID-SPN} and \textsf{MT} we reproduce the experiments as
+    in~\parencite{Rooshenas2014-short}.\par\bigskip
 
+    Considering the test log-likelihoods, \textsf{SPN-B} improves
+    \textsf{LearnSPN} values 6 times, and is surpassed by \textsf{SPN-BT} on 13
+    datasets; while \textsf{SPN-BB} and
+    \textsf{SPN-BTB} score 11 and 13 wins against \textsf{ID-SPN} respectively.\par\bigskip
+    
 
-      % \begin{table}[!htbp]
-      %   \centering
-      %   \tiny
-      %   \setlength{\tabcolsep}{3pt}  
-      %   \begin{tabular}{r r r r l r r r r r r}
-      %     \toprule
-      %     & \bmccol{4}{\# edges}    & \bmccol{3}{\# layers} & \bmccol{3}{\# params}                                                                                                                                                   \\
-      %     \midrule
-      %     % & \textsf{LearnSPN}       & \textsf{SPN-B}
-      %     % & SPN-BT}                 & LearnSPN}             & SPN-B}                & SPN-BT}                 & LearnSPN}            & SPN-B}                & SPN-BT}                                                                \\
-      %     & \tmccol{1}{LearnSPN}    & \tmccol{1}{SPN-B}     & \tmccol{2}{SPN-BT}    & \tmccol{1}{LearnSPN}    & \tmccol{1}{SPN-B}    & \tmccol{1}{SPN-BT}    & \tmccol{1}{LearnSPN}    & \tmccol{1}{SPN-B}    & \tmccol{1}{SPN-BT}    \\
-      %     % & \rot{\textsf{LearnSPN}} & \rot{\textsf{SPN-B}}  & \rot{\textsf{SPN-BT}} & \rot{\textsf{LearnSPN}} & \rot{\textsf{SPN-B}} & \rot{\textsf{SPN-BT}} & \rot{\textsf{LearnSPN}} & \rot{\textsf{SPN-B}} & \rot{\textsf{SPN-BT}} \\
-      %     % & e                       & l                     & p                     & e                       & l                    & p                     & e                       & l                    & p                     \\
-      %     \midrule       
-      %     \textbf{NLTCS}      & 7509                    & 1133                  & 1133                  & (1125)                  & 4                    & 15                    & 15                      & 476                  & 275  & 275            \\
-      %     \textbf{MSNBC}      & 22350                   & 4258                  & 4258                  & (3996)                  & 4                    & 21                    & 21                      & 1680                 & 1071 & 1071           \\
-      %     \textbf{KDDCup2k}   & 44544                   & 4272                  & 4272                  & (4166)                  & 4                    & 25                    & 25                      & 753                  & 760  & 760            \\
-      %     \textbf{Plants}     & 55668                   & 13720                 & 5948                  & (1840)                  & 6                    & 23                    & 20                      & 3819                 & 2397 & 490            \\
-      %     \textbf{Audio}      & 70036                   & 16421                 & 4059                  & (478)                   & 8                    & 23                    & 15                      & 3389                 & 2631 & 105            \\
-      %     \textbf{Jester}     & 36528                   & 10793                 & 10793                 & (8587)                  & 4                    & 19                    & 19                      & 563                  & 1932 & 1932           \\
-      %     \textbf{Netflix}    & 17742                   & 25009                 & 4132                  & (203)                   & 4                    & 25                    & 14                      & 1499                 & 4070 & 82             \\
-      %     \textbf{Accidents}  & 48654                   & 12367                 & 10547                 & (6687)                  & 6                    & 25                    & 26                      & 5390                 & 2708 & 1977           \\
-      %     \textbf{Retail}     & 7487                    & 1188                  & 1188                  & (1153)                  & 4                    & 23                    & 23                      & 171                  & 224  & 224            \\
-      %     \textbf{Pumsb-star} & 15247                   & 12800                 & 9984                  & (6175)                  & 8                    & 25                    & 23                      & 1911                 & 2662 & 1680           \\
-      %     \textbf{DNA}        & 17602                   & 3178                  & 4225                  & (2746)                  & 6                    & 13                    & 12                      & 947                  & 884  & 1113           \\
-      %     \textbf{Kosarek}    & 7993                    & 8174                  & 2216                  & (1311)                  & 6                    & 27                    & 21                      & 781                  & 1462 & 242            \\
-      %     \textbf{MSWeb}      & 17339                   & 9116                  & 7568                  & (6797)                  & 6                    & 27                    & 34                      & 620                  & 1672 & 1446           \\
-      %     \textbf{Book}       & 42491                   & 9917                  & 3503                  & (3485)                  & 4                    & 15                    & 13                      & 1176                 & 1351 & 430            \\
-      %     \textbf{EachMovie}  & 52693                   & 20756                 & 20756                 & (17861)                 & 8                    & 23                    & 23                      & 1010                 & 2637 & 2637           \\
-      %     \textbf{WebKB}      & 52498                   & 45620                 & 8796                  & (6874)                  & 8                    & 23                    & 16                      & 1712                 & 6087 & 1128           \\
-      %     \textbf{Reuters-52} & 307113                  & 77336                 & 77336                 & (59197)                 & 12                   & 31                    & 31                      & 3641                 & 8968 & 8968           \\
-      %     % \textbf{20 NewsG} & 438100                  & 169326                & (114951)              & 10                      & 31                   & 33                    & 3442                    & 18117                & 18065                 \\
-      %     \textbf{BBC}        & 318313                  & 63723                 & 63723                 & (41247)                 & 16                   & 27                    & 27                      & 1134                 & 6147 & 6147           \\
-      %     \textbf{Ad}         & 70056                   & 23606                 & 23606                 & (20079)                 & 16                   & 59                    & 59                      & 1060                 & 1222 & 1222           \\
-      %     \bottomrule
-      %   \end{tabular}
-      %   \caption[Experimentation statistics]{\scriptsize Structural quality results for
-      %     the best validation models for \textsf{LearnSPN},
-      %     \textsf{SPN-B} and \textsf{SPN-BT} as the number
-      %     of edges, layers and parameters. For \textsf{SPN-BT} are reported
-      %     the number of edges considering those in the Chow-Liu leaves
-      %     and without considering them (in parenthesis).}
-      %   \label{tab:expstats}
-      % \end{table}
 
 
 
@@ -697,7 +662,7 @@
     \footnotesize
     \textsf{SPN-BT} reduces the
     size of the networks even more while preserving \textsf{SPN-B}
-    accuracy. At larger values of $m$, when both SPN-B and LearnsSPN
+    accuracy. At larger values of $m$, when both \textsf{SPN-B} and \textsf{LearnSPN}
     accuracies tend to decrease, \textsf{SPN-BT} seems to preserve or
     improve its likelihood.
     
