@@ -712,12 +712,13 @@
     resulting networks not so accurate.\par\bigskip
     
     Idea: interpreting sum nodes as \emph{general additive estimators}
-    by leveraging
+    by leveraging\\
     classic statistical tools to learn them:
     \textbf{\emph{bagging}}.\par\bigskip
 
-    We draw $k$ bootstrapped samples from the data, then grow an SPN $S_{B_i}$ on
-    each of them. Join them into a single SPN $\hat{S}$ with a sum node:
+    We draw $k$ bootstrapped samples from the data, then grow an SPN
+    $S_{B_i}$\\
+    on each one. Join them into a single SPN $\hat{S}$ with a sum node:
     $\hat{S}=\sum_{i=1}^{k}\frac{1}{k}S_{B_{i}}$.\par\bigskip
     
     Two new variants, \textsf{SPN-BB} and
