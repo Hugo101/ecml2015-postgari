@@ -1,6 +1,6 @@
 \documentclass[final]{beamer}
 
-\usetheme{enziteto}
+
 
 \usepackage[orientation=portrait, size=a0, scale=1.4, debug]{beamerposter}
 \usepackage{booktabs}
@@ -9,18 +9,19 @@
 \usepackage{xcolor}
 \usepackage{hyperref}
 \usepackage{amsmath}
-%\usepackage[absolute, showboxes, overlay]{textpos}
+%c\usepackage[absolute, showboxes, overlay]{textpos}
 \usepackage[absolute, overlay]{textpos}
 \usepackage{calc}
 %\usepackage[colorgrid,texcoord]{eso-pic}
-\usepackage{biblatex}
+\usepackage[bibstyle=numeric]{biblatex}
 % \usepackage{enumitem}
-\defaultfontfeatures{Mapping=tex-text}
+% \defaultfontfeatures{Mapping=tex-text}
+
+\usetheme{enziteto}
 
 \addbibresource{../referomnia/referomnia.bib}
 
 \usepackage{blindtext}
-
 
 \newcommand*\mccol[2]{\multicolumn{#1}{c}{#2}}
 \newcommand*\tmccol[2]{\mccol{#1}{\tiny\textsf{#2}}}
@@ -51,10 +52,12 @@
 \setbeamertemplate{itemize item}{\raisebox{.21ex}{\hbox{\tiny\textcolor{lacamlilac}{$\boldsymbol{\oplus}$}}\hspace{0pt}}}
 \setbeamertemplate{itemize subitem}{\raise .2ex\hbox{\tiny\textcolor{lacamlilac}{$\boldsymbol{\otimes}$}}\hspace{0pt}}
 \setbeamertemplate{itemize subsubitem}{\textcolor{lacamlilac}{$\oplus$}}
-\setbeamertemplate{bibliography item}{\hspace{10pt}\raise .2ex\hbox{\tiny\textcolor{lacamlilac}{$\boldsymbol{\oplus}$}}}
+% \setbeamertemplate{bibliography item}{\hspace{10pt}\raise
+%   .2ex\hbox{\tiny\textcolor{lacamlilac}{$\boldsymbol{\oplus}$}}\insertbiblabel}
+\setbeamertemplate{bibliography item}{\insertbiblabel}
 
 
-% \setbeamertemplate{headline}{}
+\setbeamertemplate{headline}{}
 
 % \addbibresource{../referomnia/referomnia.bib}
 
@@ -129,14 +132,14 @@
   \end{textblock}
   %
   % affiliations
-  \begin{textblock}{20}(60, 0)
+  \begin{textblock}{30}(60, 0)
     \usebeamerfont{author}
-    \scriptsize
+    \footnotesize
     \begin{minipage}[t]{5cm}
-      \vspace{0pt}\hspace{10pt}
-      \includegraphics[width=90pt]{figures/unibaba}
+      \vspace{0pt}\hspace{5pt}
+      \includegraphics[width=97pt]{figures/unibaba}
     \end{minipage}
-    \begin{minipage}[t]{12cm}
+    \begin{minipage}[t]{15cm}
     \vspace{27pt}
       \flushleft
       University of Bari "Aldo Moro", Italy\\
@@ -144,12 +147,12 @@
       Department of Computer Science
     \end{minipage}\\[0.75cm]
     \usebeamerfont{author}
-    \scriptsize
+    \footnotesize
     \begin{minipage}[t]{5cm}
       \vspace{0pt}
-      \includegraphics[width=110pt]{figures/lacam}
+      \includegraphics[width=117pt]{figures/lacam}
     \end{minipage}
-    \begin{minipage}[t]{12cm}
+    \begin{minipage}[t]{15cm}
       \vspace{23pt}
       \flushleft
       LACAM\\
@@ -264,7 +267,7 @@
   \end{minipage}\\[20pt]
 
   The \emph{\textbf{depth of the network}} (\emph{\# layers})
-  determines expressive efficiency~\parencite{Martens2014,Zhao2015}.
+  determines expressive efficiency~\parencite{Martens2014}.
 
   \end{textblock}
   
@@ -750,7 +753,6 @@
         \textsf{SPN-BTB} while increasing the number of components against \textsf{LearnSPN}, \textsf{MT} and
         \textsf{ID-SPN} best models accuracies for Pumsb\_star (left)
         and DNA (right).
-        .
       \end{minipage}
     \end{center}
   \end{textblock}
@@ -768,19 +770,13 @@
     \usebeamerfont{section name}
     References
   \end{textblock}
-  
-  % \begin{textblock}{25.2}(0, 105.8)
-  %   \small
-  %   % \blindtext
-  %   \setlength\bibitemsep{8pt}
-  %   \printbibliography
-  % \end{textblock}
 
-  \begin{textblock}{52}(0, 106.5)
+  
+ \begin{textblock}{52}(0, 106.5)
     \small
     % \blindtext
     \setlength\bibitemsep{8pt}
-    \printbibliography
+    \printbibliography[heading=none]
   \end{textblock}
   
   \begin{textblock}{25.2}(27.4, 106.5)
@@ -798,7 +794,7 @@
   \begin{textblock}{80}(0, 114.3)
     \usebeamerfont{subtitle}
     \footnotesize
-    \textbf{ECML-PKDD 2015} - 8th September 2015, Porto, Portugal\hfill
+    \textbf{ECML-PKDD 2015}  -  7th-11th September 2015, Porto, Portugal\hfill
     {\url{http://www.di.uniba.it/~vergari/code/spyn.html}}
   \end{textblock}
   
