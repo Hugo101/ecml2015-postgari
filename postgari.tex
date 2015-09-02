@@ -402,7 +402,7 @@
     
     
     Tractability is guaranteed if the network size is polynomial in \#
-    vars. \emph{\textbf{Structure quality matters}} as much as likelihood. comparing network sizes is more solid than comparing inference times.\par\bigskip
+    vars. \emph{\textbf{Structure quality matters}} as much as likelihood. Comparing network sizes is more solid than comparing inference times.\par\bigskip
 
     LearnSPN is too greedy and the resulting SPNs are overcomplex
     networks that may not generalize well. \textbf{\emph{Structure quality desiderata}}: \emph{smaller} but \emph{accurate}, \emph{deeper} but not wider, SPNs. 
@@ -433,7 +433,7 @@
     and similarly suffers
     from the other's mistakes.\par\bigskip
 
-    Idea: slowing down the processes by limiting the number of
+    \textbf{Idea}: slowing down the processes by limiting the number of
     nodes to split into. \textsf{SPN-B}, variant of \textsf{LearnSPN} that uses EM
     for mixture modeling but doing only \textsf{B}inary splits for sum nodes children
     ($k=2$) when clustering rows.\par\bigskip
@@ -453,7 +453,7 @@
     %     \includegraphics[width=0.85\linewidth]{figures/learnspn-4}
     %   \end{center}
     % \end{minipage}
-    Objectives: not committing to complex structures too early while
+    \textbf{Objectives}: not committing to complex structures too early while
     retaining same expressive power (right Figure is equivalent to the
     SPN in Figure 1.b); moreover, reducing
           the node out fan increases the network depth. Plus, there is no
@@ -497,7 +497,7 @@
     \setlength{\leftmargini}{30pt}
     We devised our experiments in a classical setting for \emph{\textbf{generative}} graphical models
     structure learning \parencite{Gens2013}: we used 19 binary datasets from classification, recommendation,
-      frequent pattern mining\dots \parencite{Haaren2012} (NLT) which
+      frequent pattern mining\dots \parencite{Haaren2012} which
       are split into a training ($\sim$75\%), a  validation
       ($\sim$10\%) and a test ($\sim$15\%) part to compare both the
       networks accuracies and their structure quality. We measured:
@@ -638,14 +638,14 @@
     get accurate networks, the algorithm prefers smaller values for
     $m$, resulting in more complex networks\par\bigskip
 
-    Idea: substitute naive factorizations with Bayesian trees as
+    \textbf{Idea}: substitute naive factorizations with Bayesian trees as
     \emph{\textbf{multivariate tractable tree
         distributions}}. \textsf{SPN-BT} learns such \textsf{T}rees
     with the Chow-Liu algorithm while stopping the search.\par\bigskip
 
     \begin{minipage}[t]{0.6\linewidth}
         \flushleft
-        Objectives: represent more information allowing for larger
+        \textbf{Objectives}: represent more information allowing for larger
         values of $m$ to be chosen, while preserving tractability for marginals,
         conditionals and MPE inference\\(still linear in the number of leaves).
       \end{minipage}% \hspace{40pt}\begin{minipage}[c]{0.3\linewidth}
@@ -710,7 +710,7 @@
     The structure building process can still be too greedy and the
     resulting networks not so accurate.\par\bigskip
     
-    Idea: interpreting sum nodes as \emph{general additive estimators}
+    \textbf{Idea}: interpreting sum nodes as \emph{general additive estimators}
     by leveraging\\
     classic statistical tools to learn them:
     \textbf{\emph{bagging}}.\par\bigskip
@@ -723,7 +723,7 @@
     Two new variants, \textsf{SPN-BB} and
     \textsf{SPN-BTB}, apply \textsf{B}agging to \textsf{SPN-B} and \textsf{SPN-BT}.\par\bigskip
 
-    Objectives: more robustness and less variance in the model.
+    \textbf{Objectives}: more robustness and less variance in the model.
     However, the number of nodes can grow exponential if we bootstrap
     $c$ times for each sum node, thus we
     apply it once, at the root level only.
