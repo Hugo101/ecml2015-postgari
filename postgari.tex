@@ -138,9 +138,9 @@
     \begin{minipage}[t]{5cm}
       \vspace{0pt}\hspace{5pt}
       \includegraphics[width=97pt]{figures/unibaba}
-    \end{minipage}
+    \end{minipage}\hspace{-15pt}
     \begin{minipage}[t]{15cm}
-    \vspace{27pt}
+    \vspace{20pt}
       \flushleft
       University of Bari "Aldo Moro", Italy\\
     \vspace{2pt}
@@ -151,11 +151,11 @@
     \begin{minipage}[t]{5cm}
       \vspace{0pt}
       \includegraphics[width=117pt]{figures/lacam}
-    \end{minipage}
+    \end{minipage}\hspace{-15pt}
     \begin{minipage}[t]{15cm}
       \vspace{23pt}
       \flushleft
-      LACAM\\
+      LACAM Laboratory\\
       \vspace{2pt}
       Machine Learning
     \end{minipage}
@@ -216,8 +216,8 @@
     The parameters of the network are the weights $w_{ij}$ associated to sum
     nodes children edges.\par
     
-    Product nodes define factorizations over independent vars, sum
-    nodes mixtures.\par
+    Product nodes define factorizations over independent components, while sum
+    nodes represent mixtures.\par
     
     % Sum node children weights are the parameters of the model.\\
     
@@ -233,7 +233,6 @@
       \centering
       \includegraphics[width=0.55\linewidth]{figures/spn-sum}
     \end{minipage}
-    
     
   \end{textblock}
 
@@ -345,9 +344,9 @@
     \end{minipage}}\hspace{50pt}\raisebox{180pt}{\begin{minipage}[t]{4cm}
       \tiny\flushleft
       Figure 1.\\
-      LearnSPN steps depiction starting from a full data matrix \emph{(a)},
+      LearnSPN steps depiction: starting from a full data matrix \emph{(a)},
       clustering on rows \emph{(b)}, then on columns \emph{(c)}, and putting a naive
-      factorization on leaves \emph{(d)}
+      factorization on leaves \emph{(d)}.
     \end{minipage}}\\
   \vspace{-20pt}\hspace{80pt}\begin{minipage}[t]{7cm}
     \scriptsize\emph{(a)}
@@ -469,8 +468,7 @@
 
     \footnotesize
     By increasingly limiting the max number of allowed splits the depth of the
-    structures increases and the network size rate of growth
-    decreases.  
+    structures increases and the network size growth rate decreases.  
     \begin{table}[ht]
       \setlength{\tabcolsep}{30pt}  
       \centering
@@ -497,15 +495,15 @@
     \setlength{\leftmargini}{30pt}
     We devised our experiments in a classical setting for \emph{\textbf{generative}} graphical models
     structure learning \parencite{Gens2013}: we used 19 binary datasets from classification, recommendation,
-      frequent pattern mining\dots \parencite{Haaren2012} which
+      frequent pattern mining domains~\parencite{Haaren2012} which
       are split into a training ($\sim$75\%), a  validation
       ($\sim$10\%) and a test ($\sim$15\%) part to compare both the
       networks accuracies and their structure quality. We measured:
     \begin{itemize}
     \item \emph{\textbf{average log-likelihood}} on predicting test
       instances
-    \item networks sizes (\# edges)
-    \item network depth (\# alternated type layers)
+    \item network \emph{\textbf{sizes}} (\# edges)
+    \item network \emph{\textbf{depths}} (\# alternated type layers)
      % \item latent interactions captured (\# number of parameters)
 
     \end{itemize}\bigskip
@@ -515,7 +513,7 @@
     measure the structure quality improvements and then we add
     \textsf{SPN-BB} combining \textsf{B}inary splits and
     \textsf{B}agging and \textsf{SPN-BTB} including all variants in a comparison
-    against the state-of-the-art in terms of loglikelihood: 
+    against the state-of-the-art in terms of log-likelihood: 
     \textsf{ID-SPN}~\parencite{Rooshenas2014-short} and \textsf{MT}~\parencite{Meila2000}.
     
    
@@ -533,7 +531,7 @@
       \end{itemize}
     \end{minipage}\\[17pt]
     
-    The gain in network sizes is up to one order of magnitute with
+    The gain in network sizes is up to one order of magnitude with
     \textsf{SPN-BT} while very considerable depths are preserved.
     
     \begin{table}[ht]
@@ -610,7 +608,7 @@
         \begin{minipage}[t]{0.9\linewidth}
           \tiny\flushleft
           Table 1. Average test
-          log likelihoods for the best networks learned by all
+          log-likelihoods for the best networks learned by all
           algorithms on all datasets after the grid search. In bold
           the values that are statistically better than all the others
           according to a Wilcoxon signed rank test with $p$-value of 0.05.
@@ -641,7 +639,7 @@
     \textbf{Idea}: substitute naive factorizations with Bayesian trees as
     \emph{\textbf{multivariate tractable tree
         distributions}}. \textsf{SPN-BT} learns such \textsf{T}rees
-    with the Chow-Liu algorithm while stopping the search.\par\bigskip
+    with the Chow-Liu algorithm when stopping the splitting process.\par\bigskip
 
     \begin{minipage}[t]{0.6\linewidth}
         \flushleft
@@ -725,7 +723,7 @@
 
     \textbf{Objectives}: more robustness and less variance in the model.
     However, the number of nodes can grow exponential if we bootstrap
-    $c$ times for each sum node, thus we
+    $k$ times \emph{for each sum node}, thus we
     apply it once, at the root level only.
 
     
@@ -735,7 +733,7 @@
   \begin{textblock}{25.2}(27.4, 87.8)
     \footnotesize
     Both \textsf{SPN-BB} and \textsf{SPN-BTB} improve their respective
-    variants accuracies a lot and beat \textsf{ID-SPN} on 14 datasets
+    variants accuracies considerably and beat \textsf{ID-SPN} on 14 datasets
     (see Table 1). Monitoring the test log-likelihood gain can help
     decide the proper number of components.
     \begin{table}[ht]
